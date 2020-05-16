@@ -30,7 +30,7 @@ public class RegisterActivity extends AppCompatActivity  {
     ImageView back_arrow;
     EditText email,pass,user_name,passr;
 
-    String URL = "http://3.15.228.207/registrar.php";
+    String URL = "http://3.15.228.207/connect/registrar.php";
     RequestQueue requestQueue;
     JsonObjectRequest json;
     @Override
@@ -67,7 +67,14 @@ public class RegisterActivity extends AppCompatActivity  {
                 StringRequest stringRequest = new StringRequest(Request.Method.POST, URL, new Listener<String>() {
                     @Override
                     public void onResponse(String response) {
-                        Toast.makeText(getApplicationContext(),response,Toast.LENGTH_LONG).show();
+                        if(response.equals("error_usuario")){
+                            Toast.makeText(getApplicationContext(),"El usuario ya existe",Toast.LENGTH_LONG).show();
+                        }else if(response.equals("error_email")){
+                            Toast.makeText(getApplicationContext(),"El correo electrónico ya existe",Toast.LENGTH_LONG).show();
+                        }else{
+                            Toast.makeText(getApplicationContext(),response,Toast.LENGTH_LONG).show();
+                        }
+
                     }
                 }, new Response.ErrorListener() {
                     @Override

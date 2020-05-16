@@ -6,18 +6,71 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
+import android.widget.Toast;
+
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.StringRequest;
+import com.android.volley.toolbox.Volley;
+import com.example.menu.MenuActivity;
+
+import java.util.HashMap;
+import java.util.Map;
 
 public class MainActivity extends AppCompatActivity {
 
     Button btn_login,btn_registrar;
-
+    EditText campo_email, campo_pass;
+    String URL = "http://3.15.228.207/connect/login.php";
+    RequestQueue requestQueue;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+
         btn_login=findViewById(R.id.login_button);
         btn_registrar=findViewById(R.id.registrar_button);
+        campo_email = findViewById(R.id.email_login);
+        campo_pass = findViewById(R.id.pass_login);
+        requestQueue = Volley.newRequestQueue(this);
+
+        btn_login.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                StringRequest stringRequest = new StringRequest(Request.Method.POST, URL, new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String response) {
+                        if(response.equals("LOGGED")){
+                            Intent in = new Intent(MainActivity.this, MenuActivity.class);
+                            startActivity(in);
+                        }else{
+                            Toast.makeText(getApplicationContext(),response,Toast.LENGTH_LONG).show();
+                        }
+                    }
+                }, new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        Toast.makeText(getApplicationContext(),error.toString(),Toast.LENGTH_LONG).show();
+                    }
+                })
+                {
+                    @Override
+                    protected Map<String, String> getParams()
+                    {
+                        Map<String, String> params = new HashMap<String, String>();
+                        params.put("email",campo_email.getText().toString());
+                        params.put("pass",campo_pass.getText().toString());
+                        return params;
+                    }
+                };
+
+                requestQueue.add(stringRequest);
+            }
+        });
     }
 
     public void Ir_registro(View view) {
