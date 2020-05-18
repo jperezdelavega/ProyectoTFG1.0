@@ -8,4 +8,7 @@
     <color name="lightwhite">#F5F5F3</color>
     <color name="whitecolor">#fff</color>
     <color name="fullwhite">#C6C6C6</color>
+    <color name="red">#b22222</color>
+    <color name="greenmenu">#4CAF50</color>
+    <color name ="blue">#4C61D6</color>
 </resources>
