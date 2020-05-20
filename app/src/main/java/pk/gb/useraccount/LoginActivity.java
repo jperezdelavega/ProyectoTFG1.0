@@ -2,7 +2,9 @@ package pk.gb.useraccount;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -20,7 +22,7 @@ import com.example.menu.MenuActivity;
 import java.util.HashMap;
 import java.util.Map;
 
-public class MainActivity extends AppCompatActivity {
+public class LoginActivity extends AppCompatActivity {
 
     Button btn_login,btn_registrar;
     EditText campo_email, campo_pass;
@@ -28,9 +30,14 @@ public class MainActivity extends AppCompatActivity {
     RequestQueue requestQueue;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
 
+        if (cargarUsuario()){
+            Intent in = new Intent(LoginActivity.this, MenuActivity.class);
+            startActivity(in);
+            finish();
+        }
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_login);
 
         btn_login=findViewById(R.id.login_button);
         btn_registrar=findViewById(R.id.registrar_button);
@@ -45,8 +52,10 @@ public class MainActivity extends AppCompatActivity {
                     @Override
                     public void onResponse(String response) {
                         if(response.equals("LOGGED")){
-                            Intent in = new Intent(MainActivity.this, MenuActivity.class);
+                            guardarUsuario(campo_email);
+                            Intent in = new Intent(LoginActivity.this, MenuActivity.class);
                             startActivity(in);
+                            finish();
                         }else{
                             Toast.makeText(getApplicationContext(),response,Toast.LENGTH_LONG).show();
                         }
@@ -73,8 +82,23 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
+    private boolean cargarUsuario() {
+        SharedPreferences preferences = getSharedPreferences("credenciales",Context.MODE_PRIVATE);
+        String user = preferences.getString("user","null");
+
+        return !(user.equals("null"));
+
+    }
+
+    private void guardarUsuario(EditText campo_email) {
+        SharedPreferences preferences = getSharedPreferences("credenciales",Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = preferences.edit();
+        editor.putString("user",campo_email.getText().toString());
+        editor.commit();
+    }
+
     public void Ir_registro(View view) {
-        Intent ic = new Intent(MainActivity.this, RegisterActivity.class);
+        Intent ic = new Intent(LoginActivity.this, RegisterActivity.class);
         startActivity(ic);
     }
 }

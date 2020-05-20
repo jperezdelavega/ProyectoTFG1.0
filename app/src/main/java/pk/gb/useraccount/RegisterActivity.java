@@ -19,8 +19,6 @@ import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 
-import org.json.JSONObject;
-
 import java.util.HashMap;
 import java.util.Map;
 
@@ -52,7 +50,7 @@ public class RegisterActivity extends AppCompatActivity  {
         back_arrow.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent ds = new Intent(RegisterActivity.this, MainActivity.class);
+                Intent ds = new Intent(RegisterActivity.this, LoginActivity.class);
                 startActivity(ds);
             }
         });
@@ -73,6 +71,9 @@ public class RegisterActivity extends AppCompatActivity  {
                             Toast.makeText(getApplicationContext(),"El correo electrónico ya existe",Toast.LENGTH_LONG).show();
                         }else{
                             Toast.makeText(getApplicationContext(),response,Toast.LENGTH_LONG).show();
+                            Intent ds = new Intent(RegisterActivity.this, LoginActivity.class);
+                            startActivity(ds);
+                            finish();
                         }
 
                     }

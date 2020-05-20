@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent" android:layout_height="match_parent">
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbar_reference"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:background="@color/colorPrimaryDark"
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        >
+        <ImageView
+            android:id="@+id/home_tool_main"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:src="@drawable/ic_home_black_24dp"
+            ></ImageView>
+
+    </androidx.appcompat.widget.Toolbar>
+
+    <FrameLayout
+        android:id="@+id/contenedor_principal"
+        android:layout_below="@+id/toolbar_reference"
+        android:layout_marginTop="5dp"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"></FrameLayout>
+</RelativeLayout>
