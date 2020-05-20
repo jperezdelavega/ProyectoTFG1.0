@@ -82,7 +82,7 @@ public class LoginActivity extends AppCompatActivity {
         });
     }
 
-    private boolean cargarUsuario() {
+    public boolean cargarUsuario() {
         SharedPreferences preferences = getSharedPreferences("credenciales",Context.MODE_PRIVATE);
         String user = preferences.getString("user","null");
 
@@ -90,7 +90,7 @@ public class LoginActivity extends AppCompatActivity {
 
     }
 
-    private void guardarUsuario(EditText campo_email) {
+    public void guardarUsuario(EditText campo_email) {
         SharedPreferences preferences = getSharedPreferences("credenciales",Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = preferences.edit();
         editor.putString("user",campo_email.getText().toString());

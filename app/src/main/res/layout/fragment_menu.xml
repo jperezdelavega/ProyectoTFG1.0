@@ -31,7 +31,8 @@
                     android:id="@+id/menu_invetory"
                     android:layout_width="match_parent"
                     android:layout_height="190dp"
-                    android:layout_margin="10dp">
+                    android:layout_margin="10dp"
+                    android:onClick="onClick">
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
@@ -78,7 +79,8 @@
                     android:id="@+id/lista_compra_menu"
                     android:layout_width="match_parent"
                     android:layout_height="190dp"
-                    android:layout_margin="10dp">
+                    android:layout_margin="10dp"
+                    android:onClick="onClick">
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
@@ -128,7 +130,8 @@
                     android:id="@+id/agregar_menu"
                     android:layout_width="160dp"
                     android:layout_height="190dp"
-                    android:layout_margin="10dp">
+                    android:layout_margin="10dp"
+                    android:onClick="onClick">
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
@@ -169,7 +172,8 @@
                     android:id="@+id/eliminar_menu"
                     android:layout_width="160dp"
                     android:layout_height="190dp"
-                    android:layout_margin="10dp">
+                    android:layout_margin="10dp"
+                    android:onClick="onClick">
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
