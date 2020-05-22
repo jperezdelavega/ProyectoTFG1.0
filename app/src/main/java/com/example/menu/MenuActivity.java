@@ -3,6 +3,7 @@ package com.example.menu;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.cardview.widget.CardView;
+import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 import pk.gb.useraccount.LoginActivity;
 import pk.gb.useraccount.R;
@@ -99,7 +100,7 @@ public void onClick(View view){
             break;
         case R.id.home_tool_main:
             transaction.replace(R.id.contenedor_principal,fragmentMenu,"menu");
-            transaction.addToBackStack("menu");
+
             break;
     }
     transaction.commit();

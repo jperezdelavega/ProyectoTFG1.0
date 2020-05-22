@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    app:cardCornerRadius="3dp"
+    app:cardElevation="3dp"
+    app:cardUseCompatPadding="true"
+    android:id="@+id/card_item"
+    >
+<RelativeLayout
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:id="@+id/margen_item">
+    <ImageView
+        android:layout_width="65dp"
+        android:layout_height="65dp"
+        android:id="@+id/img_item"
+        android:src="@drawable/logo_menu_circle"/>
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/titulo_item"
+        android:text="Pasta gallina blanca 500G"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        android:layout_toRightOf="@+id/img_item"
+        android:layout_toEndOf="@+id/img_item"
+        android:layout_margin="8dp"
+        android:textColor="@color/blackcolor"/>
+
+    <ImageButton
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:layout_margin="5dp"
+        android:id="@+id/button_item_add"
+        android:layout_below="@+id/titulo_item"
+        android:layout_alignParentRight="true"
+        android:src="@drawable/ic_add_menu"
+        android:background="@drawable/circle_menu_greenmenu"
+        android:clickable="true"/>
+
+
+    <TextView
+        android:id="@+id/unidades_item"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:textAlignment="center"
+        android:layout_toLeftOf="@+id/button_item_add"
+        android:layout_below="@id/titulo_item"
+        android:background="@drawable/circle_menu_dark"
+        android:text="4"
+        android:textSize="19sp"
+        android:textColor="@color/whitecolor"
+        android:layout_margin="5dp"/>
+    <ImageButton
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:id="@+id/button_item_delete"
+        android:layout_below="@+id/titulo_item"
+        android:layout_toLeftOf="@+id/unidades_item"
+        android:src="@drawable/ic_remove_menu"
+        android:background="@drawable/circle_menu_red"
+        android:layout_margin="5dp"
+        android:clickable="true"/>
+
+</RelativeLayout>
+
+</androidx.cardview.widget.CardView>
