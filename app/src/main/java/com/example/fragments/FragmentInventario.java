@@ -4,6 +4,14 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ExpandableListView;
+
+import com.example.inventario.InventarioAdapter;
+import com.example.inventario.Producto;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
 
 import androidx.fragment.app.Fragment;
 import pk.gb.useraccount.R;
@@ -57,7 +65,25 @@ public class FragmentInventario extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_inventario, container, false);
+        View view = inflater.inflate(R.layout.fragment_inventario, container, false);
+        ExpandableListView listView = view.findViewById(R.id.ListaGruposExpansible);
+        HashMap<String, List<Producto>> lista = new HashMap<>();
+
+        ArrayList<Producto> listaProductosGrupo1 = new ArrayList<>();
+        Producto p1 = new Producto("Patatas","12","easda");
+        Producto p2 = new Producto("Macarrones","5","easda");
+        Producto p3 = new Producto("Tomate","4","easda");
+        Producto p4 = new Producto("Spagueti","3","easda");
+        listaProductosGrupo1.add(p1);
+        listaProductosGrupo1.add(p2);
+        ArrayList<Producto> listaProductosGrupo2 = new ArrayList<>();
+        listaProductosGrupo2.add(p3);
+        listaProductosGrupo2.add(p4);
+        lista.put("Vegetales",listaProductosGrupo1);
+        lista.put("Otros",listaProductosGrupo2);
+
+        InventarioAdapter inventarioAdapter = new InventarioAdapter(lista);
+        listView.setAdapter(inventarioAdapter);
+        return view;
     }
 }
