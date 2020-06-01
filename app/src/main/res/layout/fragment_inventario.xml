@@ -3,6 +3,12 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="com.example.fragments.FragmentInventario">
+    <ProgressBar
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:id="@+id/progressBar"
+        android:layout_gravity="center"
+        ></ProgressBar>
 <ExpandableListView
     android:layout_width="match_parent"
     android:layout_height="match_parent"

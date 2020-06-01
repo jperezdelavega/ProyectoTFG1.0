@@ -1,19 +1,37 @@
 package com.example.fragments;
 
+import android.content.Context;
+import android.content.SharedPreferences;
+import android.os.AsyncTask;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ExpandableListView;
+import android.widget.ProgressBar;
+import android.widget.Toast;
 
+import com.android.volley.AuthFailureError;
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.StringRequest;
+import com.android.volley.toolbox.Volley;
 import com.example.inventario.InventarioAdapter;
 import com.example.inventario.Producto;
+
+import org.json.JSONArray;
+import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.SortedList;
 import pk.gb.useraccount.R;
 
 /**
@@ -31,6 +49,12 @@ public class FragmentInventario extends Fragment {
     private String mParam1;
     private String mParam2;
 
+
+    RequestQueue requestQueue;
+    HashMap<String, List<Producto>> listaGlobal ;
+    InventarioAdapter inventarioAdapter;
+    ProgressBar progressBar;
+    String[] tipoGrupos = {"Verdura","Fruta"};
     public FragmentInventario() {
         // Required empty public constructor
     }
@@ -67,23 +91,94 @@ public class FragmentInventario extends Fragment {
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_inventario, container, false);
         ExpandableListView listView = view.findViewById(R.id.ListaGruposExpansible);
-        HashMap<String, List<Producto>> lista = new HashMap<>();
-
-        ArrayList<Producto> listaProductosGrupo1 = new ArrayList<>();
-        Producto p1 = new Producto("Patatas","12","easda");
-        Producto p2 = new Producto("Macarrones","5","easda");
-        Producto p3 = new Producto("Tomate","4","easda");
-        Producto p4 = new Producto("Spagueti","3","easda");
-        listaProductosGrupo1.add(p1);
-        listaProductosGrupo1.add(p2);
-        ArrayList<Producto> listaProductosGrupo2 = new ArrayList<>();
-        listaProductosGrupo2.add(p3);
-        listaProductosGrupo2.add(p4);
-        lista.put("Vegetales",listaProductosGrupo1);
-        lista.put("Otros",listaProductosGrupo2);
-
-        InventarioAdapter inventarioAdapter = new InventarioAdapter(lista);
+        listaGlobal = new HashMap<>();
+        inventarioAdapter = new InventarioAdapter(listaGlobal);
         listView.setAdapter(inventarioAdapter);
+        crearInventario(view);
+
+
+        Log.d("menu","entra en el menu");
+
         return view;
     }
+
+    private void crearInventario(View view) {
+        requestQueue = Volley.newRequestQueue(getContext());
+        String URL = "http://3.15.228.207/inventario/cargarInventario.php";
+        progressBar = view.findViewById(R.id.progressBar);
+        StringRequest stringRequest = new StringRequest(Request.Method.POST, URL, new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+                List<Producto> lista = new ArrayList<>();
+                try {
+                    JSONObject obj = new JSONObject(response);
+                    JSONArray arrayProd = obj.getJSONArray("productos");
+                    for(int i = 0;i<arrayProd.length();i++){
+                        Producto p = new Producto();
+                        p.setNombre(arrayProd.getJSONObject(i).getString("nombre"));
+                        p.setCod_barras(arrayProd.getJSONObject(i).getString("codigo_barra"));
+                        p.setGrupo(arrayProd.getJSONObject(i).getString("id_grupo"));
+                        p.setUnidades(arrayProd.getJSONObject(i).getString("unidades"));
+                        p.setUnidadeLimite(arrayProd.getJSONObject(i).getString("unidades_limite"));
+                        lista.add(p);
+                    }
+                    agregaACadaGrupo(lista);
+                    inventarioAdapter.Refresh(listaGlobal);
+                    progressBar.setVisibility(View.GONE);
+                } catch (Exception e) {
+                    Toast.makeText(getContext(),e.getMessage().toString(),Toast.LENGTH_LONG).show();
+                }
+
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                Toast.makeText(getContext(),error.getMessage().toString(),Toast.LENGTH_LONG).show();
+            }
+        }){
+            @Override
+            protected Map<String, String> getParams() throws AuthFailureError {
+                Map<String,String> map = new HashMap<>();
+                SharedPreferences preferences = getContext().getSharedPreferences("credenciales",Context.MODE_PRIVATE);
+                String user = preferences.getString("user","null");
+                map.put("email",user);
+                return map;
+            }
+        };
+    requestQueue.add(stringRequest);
+
+    }
+
+    private void agregaACadaGrupo(List<Producto> lista) {
+        for(Producto p : lista){
+            String key = tipoGrupos[Integer.parseInt(p.getGrupo())-1];
+            if (listaGlobal.containsKey(key)){
+                List<Producto> listaAModificar = listaGlobal.get(key);
+                p.setImagenDraw(buscaIdImagen(key));
+                listaAModificar.add(p);
+                listaGlobal.put(key,listaAModificar);
+            }else{
+                List<Producto> listaAIntroducir = new ArrayList<>();
+                p.setImagenDraw(buscaIdImagen(key));
+                listaAIntroducir.add(p);
+                listaGlobal.put(key,listaAIntroducir);
+            }
+        }
+
+    }
+
+    private int buscaIdImagen(String key) {
+        int valor =0;
+        switch (key){
+            case "Verdura":
+                valor = R.drawable.ic_lechuga;
+                break;
+            case "Fruta":
+                valor = R.drawable.ic_manzana;
+                break;
+        }
+        return valor;
+    }
+
+
 }

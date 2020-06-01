@@ -1,9 +1,11 @@
 package com.example.inventario;
 
+import android.graphics.drawable.Drawable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseExpandableListAdapter;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import java.util.HashMap;
@@ -71,8 +73,10 @@ public class InventarioAdapter extends BaseExpandableListAdapter {
         Producto p = (Producto) getChild(groupPosition,childPosition);
         TextView textViewNombre = convertView.findViewById(R.id.titulo_item);
         TextView textViewUnidades= convertView.findViewById(R.id.unidades_item);
+        ImageView imageView = convertView.findViewById(R.id.img_item);
         textViewNombre.setText(p.getNombre());
         textViewUnidades.setText(p.getUnidades());
+        imageView.setImageResource(p.getImagenDraw());
 
         return convertView;
     }
@@ -80,5 +84,11 @@ public class InventarioAdapter extends BaseExpandableListAdapter {
     @Override
     public boolean isChildSelectable(int groupPosition, int childPosition) {
         return true;
+    }
+
+    public void Refresh(HashMap<String, List<Producto>> tree){
+        this.tree = tree;
+        cabeceraGrupo = tree.keySet().toArray(new String[0]);
+        notifyDataSetChanged();
     }
 }
