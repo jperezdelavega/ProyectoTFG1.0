@@ -20,6 +20,7 @@ import android.widget.Toast;
 
 import com.example.fragments.FragmentAgregar;
 import com.example.fragments.FragmentEliminar;
+import com.example.fragments.FragmentFormularioItem;
 import com.example.fragments.FragmentInventario;
 import com.example.fragments.FragmentListaCompra;
 import com.example.fragments.FragmentMenu;
@@ -31,6 +32,7 @@ public class MenuActivity extends AppCompatActivity implements View.OnClickListe
     FragmentInventario fragmentInventario;
     FragmentAgregar fragmentAgregar;
     FragmentEliminar fragmentEliminar;
+    FragmentFormularioItem fragmentFormularioItem;
     Toolbar toolbar;
     CardView inventario,lista_compra,eliminar,agregar;
     @Override
@@ -48,6 +50,7 @@ public class MenuActivity extends AppCompatActivity implements View.OnClickListe
         fragmentListaCompra = new FragmentListaCompra();
         fragmentAgregar = new FragmentAgregar();
         fragmentEliminar = new FragmentEliminar();
+        fragmentFormularioItem = new FragmentFormularioItem();
 
     }
 
@@ -99,8 +102,13 @@ public void onClick(View view){
             transaction.addToBackStack("eliminar");
             break;
         case R.id.home_tool_main:
+            while (!getSupportFragmentManager().popBackStackImmediate());
             transaction.replace(R.id.contenedor_principal,fragmentMenu,"menu");
 
+            break;
+        case R.id.botonAnadirInventario:
+            transaction.replace(R.id.contenedor_principal, fragmentFormularioItem, "addInventario");
+            transaction.addToBackStack("addInventario");
             break;
     }
     transaction.commit();

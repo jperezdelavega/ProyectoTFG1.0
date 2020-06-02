@@ -8,6 +8,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ExpandableListView;
 import android.widget.ProgressBar;
 import android.widget.Toast;
@@ -21,6 +22,8 @@ import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.example.inventario.InventarioAdapter;
 import com.example.inventario.Producto;
+import com.example.menu.MenuActivity;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -31,6 +34,7 @@ import java.util.List;
 import java.util.Map;
 
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.SortedList;
 import pk.gb.useraccount.R;
 
@@ -39,7 +43,7 @@ import pk.gb.useraccount.R;
  * Use the {@link FragmentInventario#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class FragmentInventario extends Fragment {
+public class FragmentInventario extends Fragment implements View.OnClickListener {
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
@@ -55,6 +59,8 @@ public class FragmentInventario extends Fragment {
     InventarioAdapter inventarioAdapter;
     ProgressBar progressBar;
     String[] tipoGrupos = {"Verdura","Fruta"};
+    FloatingActionButton addButton;
+    FragmentFormularioItem fragmentFormularioItem;
     public FragmentInventario() {
         // Required empty public constructor
     }
@@ -90,7 +96,11 @@ public class FragmentInventario extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_inventario, container, false);
+        addButton = view.findViewById(R.id.botonAnadirInventario);
+        addButton.setVisibility(View.GONE);
         ExpandableListView listView = view.findViewById(R.id.ListaGruposExpansible);
+        fragmentFormularioItem = new FragmentFormularioItem();
+
         listaGlobal = new HashMap<>();
         inventarioAdapter = new InventarioAdapter(listaGlobal);
         listView.setAdapter(inventarioAdapter);
@@ -125,6 +135,7 @@ public class FragmentInventario extends Fragment {
                     agregaACadaGrupo(lista);
                     inventarioAdapter.Refresh(listaGlobal);
                     progressBar.setVisibility(View.GONE);
+                    addButton.setVisibility(View.VISIBLE);
                 } catch (Exception e) {
                     Toast.makeText(getContext(),e.getMessage().toString(),Toast.LENGTH_LONG).show();
                 }
@@ -180,5 +191,11 @@ public class FragmentInventario extends Fragment {
         return valor;
     }
 
+
+    @Override
+    public void onClick(View view) {
+        MenuActivity menuActivity = (MenuActivity) getActivity();
+        menuActivity.onClick(view);
+    }
 
 }

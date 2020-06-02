@@ -1,0 +1,147 @@
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.example.fragments.FragmentFormularioItem">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:paddingTop="25dp">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:fontFamily="sans-serif-medium"
+                android:text=" Tu producto"
+                android:textColor="@color/blackcolor"
+                android:textSize="25dp"
+                android:textStyle="bold" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:fontFamily="sans-serif-medium"
+                android:text=" Nombre del producto"
+                android:layout_marginTop="12dp"
+                android:textColor="@color/blackcolor"
+                android:textSize="15dp"
+                android:textStyle="normal" />
+
+            <EditText
+                android:id="@+id/campo_nombreProducto"
+                android:layout_width="280dp"
+                android:layout_height="45dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="10dp"
+                android:background="@drawable/btn"
+                android:elevation="5dp"
+                android:hint=" Nombre  "
+                android:inputType="text"
+                android:layout_gravity="center"
+                android:textColorHint="@color/fullwhite" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:fontFamily="sans-serif-medium"
+                android:text="Código de barras"
+                android:layout_marginTop="12dp"
+                android:textColor="@color/blackcolor"
+                android:textSize="15dp"
+                android:textStyle="normal" />
+            <EditText
+                android:id="@+id/campo_codigoBarras"
+                android:layout_width="280dp"
+                android:layout_height="45dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="10dp"
+                android:background="@drawable/btn"
+                android:elevation="5dp"
+                android:hint=" Codigo de barras "
+                android:inputType="text"
+                android:layout_gravity="center"
+                android:textColorHint="@color/fullwhite" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:fontFamily="sans-serif-medium"
+                android:text="Unidades"
+                android:layout_marginTop="12dp"
+                android:textColor="@color/blackcolor"
+                android:textSize="15dp"
+                android:textStyle="normal" />
+            <EditText
+                android:id="@+id/campo_unidades"
+                android:layout_width="280dp"
+                android:layout_height="45dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="10dp"
+                android:background="@drawable/btn"
+                android:elevation="5dp"
+                android:hint=" Unidades "
+                android:inputType="number"
+                android:layout_gravity="center"
+                android:textColorHint="@color/fullwhite" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:fontFamily="sans-serif-medium"
+                android:text=" Unidades Limite"
+                android:layout_marginTop="12dp"
+                android:textColor="@color/blackcolor"
+                android:textSize="15dp"
+                android:textStyle="normal" />
+            <EditText
+                android:id="@+id/campo_UnidadesLimite"
+                android:layout_width="280dp"
+                android:layout_height="45dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="10dp"
+                android:background="@drawable/btn"
+                android:elevation="5dp"
+                android:hint=" Unidades límite "
+                android:inputType="text"
+                android:layout_gravity="center"
+                android:textColorHint="@color/fullwhite" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:fontFamily="sans-serif-medium"
+                android:text=" Tipo de alimento"
+                android:layout_marginTop="12dp"
+                android:textColor="@color/blackcolor"
+                android:textSize="15dp"
+                android:textStyle="normal" />
+            <Spinner
+                android:layout_width="280dp"
+                android:layout_height="45dp"
+                android:id="@+id/campo_tipoProducto"
+                android:layout_gravity="center"
+                android:elevation="5dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="10dp"/>
+            <Button
+                android:id="@+id/botonAnadirForm"
+                android:layout_width="280dp"
+                android:layout_height="45dp"
+                android:layout_gravity="center"
+                android:layout_marginTop="10dp"
+                android:background="@drawable/addbtn"
+                android:elevation="5dp"
+                android:text="Añadir"
+                android:textAllCaps="false"
+                android:textColor="@color/whitecolor" />
+
+
+        </LinearLayout>
+    </ScrollView>
+
+</FrameLayout>
