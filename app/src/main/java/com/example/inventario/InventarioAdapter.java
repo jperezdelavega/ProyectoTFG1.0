@@ -5,8 +5,11 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseExpandableListAdapter;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
+
+import com.example.fragments.FragmentInventario;
 
 import java.util.HashMap;
 import java.util.List;
@@ -63,6 +66,9 @@ public class InventarioAdapter extends BaseExpandableListAdapter {
     public View getGroupView(int groupPosition, boolean isExpanded, View convertView, ViewGroup parent) {
         if(convertView == null) convertView = LayoutInflater.from(parent.getContext()).inflate(R.layout.grupos,parent,false);
         TextView textView = convertView.findViewById(R.id.cabecera_grupo);
+        FragmentInventario fragmentInventario = new FragmentInventario();
+        ImageView imagen = convertView.findViewById(R.id.imgGrupos);
+        imagen.setImageResource(fragmentInventario.buscaIdImagen(String.valueOf(getGroup(groupPosition))));
         textView.setText(String.valueOf(getGroup(groupPosition)));
         return convertView;
     }
@@ -73,10 +79,9 @@ public class InventarioAdapter extends BaseExpandableListAdapter {
         Producto p = (Producto) getChild(groupPosition,childPosition);
         TextView textViewNombre = convertView.findViewById(R.id.titulo_item);
         TextView textViewUnidades= convertView.findViewById(R.id.unidades_item);
-        ImageView imageView = convertView.findViewById(R.id.img_item);
+        ImageButton imageButton = convertView.findViewById(R.id.editudlimites);
         textViewNombre.setText(p.getNombre());
         textViewUnidades.setText(p.getUnidades());
-        imageView.setImageResource(p.getImagenDraw());
 
         return convertView;
     }

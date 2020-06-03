@@ -16,12 +16,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/margen_item">
-            <ImageView
-                android:layout_width="65dp"
-                android:layout_height="65dp"
-                android:id="@+id/img_item"
-                android:padding="10dp"
-                android:src="@drawable/ic_manzana"/>
+
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -29,10 +24,17 @@
                 android:text="Pasta gallina blanca 500G"
                 android:textSize="20sp"
                 android:textStyle="bold"
-                android:layout_toRightOf="@+id/img_item"
-                android:layout_toEndOf="@+id/img_item"
                 android:layout_margin="8dp"
                 android:textColor="@color/blackcolor"/>
+            <ImageButton
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:id="@+id/editudlimites"
+                android:src="@drawable/ic_edit"
+                android:layout_below="@+id/titulo_item"
+                android:background="@drawable/circle_menu_dark"
+                android:layout_marginLeft="8dp"/>
+
 
             <ImageButton
                 android:layout_width="30dp"

@@ -1,15 +1,28 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent" android:layout_height="match_parent">
+<RelativeLayout
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/border_cabecera">
  <TextView
-     android:layout_width="match_parent"
-     android:layout_height="wrap_content"
-     android:text="EJEMPLO"
-     android:padding="?android:listPreferredItemPaddingLeft"
      android:id="@+id/cabecera_grupo"
-     android:paddingLeft="45dp"
-     android:paddingStart="45dp"
-     android:background="@color/colorPrimaryDark"
-     android:textColor="@color/whitecolor"
-     />
+     android:layout_width="wrap_content"
+     android:layout_height="wrap_content"
+     android:padding="?android:listPreferredItemPaddingLeft"
+     android:layout_marginLeft="45dp"
+     android:text="Ejemplo"
+     android:textSize="20dp"
+     android:textColor="@color/whitecolor" />
+ <ImageView
+     android:layout_width="wrap_content"
+     android:layout_height="wrap_content"
+     android:layout_toRightOf="@+id/cabecera_grupo"
+     android:id="@+id/imgGrupos"
+     android:src="@drawable/ic_manzana"
+
+     android:layout_marginTop="17dp"
+/>
+</RelativeLayout>
+
 </FrameLayout>

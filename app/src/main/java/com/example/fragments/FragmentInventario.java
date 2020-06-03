@@ -58,7 +58,7 @@ public class FragmentInventario extends Fragment implements View.OnClickListener
     HashMap<String, List<Producto>> listaGlobal ;
     InventarioAdapter inventarioAdapter;
     ProgressBar progressBar;
-    String[] tipoGrupos = {"Verdura","Fruta"};
+    public String[] tipoGrupos = {"Verdura","Fruta","Lácteos","Carne","Pescado","Droguería","Cereales","Pasta","Legumbres","Procesados","Conservas","Aceite","Azucarados","Frutos secos","Otros"};
     FloatingActionButton addButton;
     FragmentFormularioItem fragmentFormularioItem;
     public FragmentInventario() {
@@ -165,12 +165,10 @@ public class FragmentInventario extends Fragment implements View.OnClickListener
             String key = tipoGrupos[Integer.parseInt(p.getGrupo())-1];
             if (listaGlobal.containsKey(key)){
                 List<Producto> listaAModificar = listaGlobal.get(key);
-                p.setImagenDraw(buscaIdImagen(key));
                 listaAModificar.add(p);
                 listaGlobal.put(key,listaAModificar);
             }else{
                 List<Producto> listaAIntroducir = new ArrayList<>();
-                p.setImagenDraw(buscaIdImagen(key));
                 listaAIntroducir.add(p);
                 listaGlobal.put(key,listaAIntroducir);
             }
@@ -178,7 +176,7 @@ public class FragmentInventario extends Fragment implements View.OnClickListener
 
     }
 
-    private int buscaIdImagen(String key) {
+    public int buscaIdImagen(String key) {
         int valor =0;
         switch (key){
             case "Verdura":
