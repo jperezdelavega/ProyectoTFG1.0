@@ -1,5 +1,8 @@
 package com.example.fragments;
 
+import android.app.VoiceInteractor;
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -9,8 +12,19 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
+import android.widget.Toast;
+
+import com.android.volley.AuthFailureError;
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.StringRequest;
+import com.android.volley.toolbox.Volley;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 import androidx.fragment.app.Fragment;
 import pk.gb.useraccount.R;
@@ -35,10 +49,13 @@ public class FragmentFormularioItem extends Fragment implements AdapterView.OnIt
         // Required empty public constructor
     }
 
-    EditText campoNombre,campoCodigo,campoUnidades,campoUnidadesLimites;
+    EditText campoNombre,campoUnidades,campoUnidadesLimites;
     Spinner spinner;
     Button bttnadd;
     String valorTipo;
+    String URL = "http://3.15.228.207/inventario/anadirProductoManual.php";
+    FragmentInventario fragmentInventario;
+    RequestQueue requestQueue ;
 
     // TODO: Rename and change types and number of parameters
     public static FragmentFormularioItem newInstance(String param1, String param2) {
@@ -69,7 +86,8 @@ public class FragmentFormularioItem extends Fragment implements AdapterView.OnIt
         campoUnidadesLimites = view.findViewById(R.id.campo_UnidadesLimite);
         spinner = view.findViewById(R.id.campo_tipoProducto);
         bttnadd = view.findViewById(R.id.botonAnadirForm);
-        FragmentInventario fragmentInventario = new FragmentInventario();
+        fragmentInventario = new FragmentInventario();
+        requestQueue = Volley.newRequestQueue(getContext());
 
         //Creamos un adaptador para el desplegable de los tipos de productos
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(getContext(), android.R.layout.simple_spinner_item, fragmentInventario.tipoGrupos);
@@ -77,8 +95,48 @@ public class FragmentFormularioItem extends Fragment implements AdapterView.OnIt
         spinner.setAdapter(adapter);
         spinner.setOnItemSelectedListener(this);
 
+        bttnadd.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                StringRequest stringRequest = new StringRequest(Request.Method.POST,URL, new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String response) {
+                        //Aqui estaría bien mejorar la navegacion y volver al fragment del inventario, pero no se como hacerlo
+                        Toast.makeText(getContext(),response,Toast.LENGTH_SHORT).show();
+                    }
+                }, new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        Toast.makeText(getContext(),error.toString(),Toast.LENGTH_SHORT).show();
+                    }
+                }){
+                    @Override
+                    protected Map<String, String> getParams() throws AuthFailureError {
+                        Map<String,String> params = new HashMap<>();
+                        SharedPreferences preferences = getContext().getSharedPreferences("credenciales", Context.MODE_PRIVATE);
+                        String user = preferences.getString("user","null");
+                        params.put("email",user);
+                        params.put("nombre",campoNombre.getText().toString());
+                        params.put("unidades",campoUnidades.getText().toString());
+                        params.put("unidadesLimite",campoUnidadesLimites.getText().toString());
+                        params.put("grupo",obtenerIntGrupo(valorTipo));
+                        return params;
+                    }
+                };
+                requestQueue.add(stringRequest);
+            }
+
+        });
 
         return view;
+    }
+
+    private String obtenerIntGrupo(String valorTipo) {
+        int resultado = 0;
+        for (int i=0;i<fragmentInventario.tipoGrupos.length;i++){
+            if(valorTipo.equals(fragmentInventario.tipoGrupos[i])) resultado = i+1;
+        }
+        return Integer.toString(resultado);
     }
 
     @Override

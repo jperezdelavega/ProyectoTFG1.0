@@ -43,7 +43,7 @@ import pk.gb.useraccount.R;
  * Use the {@link FragmentInventario#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class FragmentInventario extends Fragment implements View.OnClickListener {
+public class FragmentInventario extends Fragment  {
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
@@ -101,6 +101,13 @@ public class FragmentInventario extends Fragment implements View.OnClickListener
         ExpandableListView listView = view.findViewById(R.id.ListaGruposExpansible);
         fragmentFormularioItem = new FragmentFormularioItem();
 
+        addButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                MenuActivity menuActivity = (MenuActivity) getActivity();
+                menuActivity.onClick(v);
+            }
+        });
         listaGlobal = new HashMap<>();
         inventarioAdapter = new InventarioAdapter(listaGlobal);
         listView.setAdapter(inventarioAdapter);
@@ -189,11 +196,5 @@ public class FragmentInventario extends Fragment implements View.OnClickListener
         return valor;
     }
 
-
-    @Override
-    public void onClick(View view) {
-        MenuActivity menuActivity = (MenuActivity) getActivity();
-        menuActivity.onClick(view);
-    }
 
 }

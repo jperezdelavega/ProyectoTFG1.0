@@ -29,10 +29,19 @@
             <ImageButton
                 android:layout_width="30dp"
                 android:layout_height="30dp"
-                android:id="@+id/editudlimites"
+                android:id="@+id/edit"
                 android:src="@drawable/ic_edit"
                 android:layout_below="@+id/titulo_item"
                 android:background="@drawable/circle_menu_dark"
+                android:layout_marginLeft="8dp"/>
+            <ImageButton
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:id="@+id/deleteItem"
+                android:src="@drawable/ic_delete"
+                android:layout_below="@+id/titulo_item"
+                android:background="@drawable/circle_menu_dark"
+                android:layout_toRightOf="@+id/edit"
                 android:layout_marginLeft="8dp"/>
 
 
