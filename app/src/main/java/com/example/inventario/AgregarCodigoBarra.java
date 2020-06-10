@@ -44,7 +44,7 @@ public class AgregarCodigoBarra extends AppCompatActivity {
                 View view = layoutInflater.inflate(R.layout.dialog,null);
                 TextView barCode = view.findViewById(R.id.CodigoDialog);
                 Button btnCancelar = view.findViewById(R.id.cancelarDialog);
-                barCode.setText("Codigo de barras: "+result.getContents());
+                barCode.setText("Código de barras: "+result.getContents());
                 alertDialog.setView(view);
                 AlertDialog dialog = alertDialog.create();
                 dialog.show();
