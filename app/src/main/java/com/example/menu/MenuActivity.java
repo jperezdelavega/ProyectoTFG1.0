@@ -3,6 +3,7 @@ package com.example.menu;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.cardview.widget.CardView;
+import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 import pk.gb.useraccount.LoginActivity;
@@ -24,6 +25,7 @@ import com.example.fragments.FragmentFormularioItem;
 import com.example.fragments.FragmentInventario;
 import com.example.fragments.FragmentListaCompra;
 import com.example.fragments.FragmentMenu;
+import com.example.inventario.AgregarCodigoBarra;
 
 public class MenuActivity extends AppCompatActivity implements View.OnClickListener {
     ImageView img_logo;
@@ -94,8 +96,10 @@ public void onClick(View view){
             transaction.addToBackStack("compra");
             break;
         case R.id.agregar_menu:
-            transaction.replace(R.id.contenedor_principal,fragmentAgregar,"agrega");
-            transaction.addToBackStack("agrega");
+            //transaction.replace(R.id.contenedor_principal,fragmentAgregar,"agrega");
+            //transaction.addToBackStack("agrega");
+            Intent intent = new Intent(this, AgregarCodigoBarra.class);
+            this.startActivity(intent);
             break;
         case R.id.eliminar_menu:
             transaction.replace(R.id.contenedor_principal,fragmentEliminar,"eliminar");
@@ -121,4 +125,5 @@ public void onClick(View view){
         };
 
     }
+
 }

@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="60dp"
+        android:id="@+id/dialogLogo"
+        android:src="@drawable/logo_menu_circle"
+        android:background="@color/colorPrimaryDark"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/nombreAlert"
+        android:text="Nombre: "
+        android:textSize="20dp"
+        android:layout_below="@+id/dialogLogo"
+        android:layout_margin="7dp"/>
+    <EditText
+        android:id="@+id/nombreDialog"
+        android:layout_width="280dp"
+        android:layout_height="35dp"
+        android:layout_margin="7dp"
+        android:layout_toRightOf="@+id/nombreAlert"
+        android:layout_below="@+id/dialogLogo"
+        android:background="@drawable/btn"
+        android:elevation="5dp"
+        android:inputType="textNoSuggestions"
+        android:paddingLeft="15dp"
+        android:textColorHint="@color/fullwhite" />
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/unidadesDialog"
+        android:text="Unidades: "
+        android:textSize="20dp"
+        android:layout_below="@+id/nombreDialog"
+        android:layout_margin="7dp"/>
+    <EditText
+        android:id="@+id/CampoUnidadesDialog"
+        android:layout_width="45dp"
+        android:layout_height="35dp"
+        android:layout_margin="7dp"
+        android:layout_toRightOf="@+id/nombreAlert"
+        android:layout_below="@+id/nombreDialog"
+        android:background="@drawable/btn"
+        android:elevation="5dp"
+        android:inputType="numberDecimal"
+        android:paddingLeft="15dp"
+        android:textColorHint="@color/fullwhite" />
+    <TextView
+        android:id="@+id/CodigoDialog"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/unidadesDialog"
+        android:layout_marginStart="7dp"
+        android:layout_marginTop="15dp"
+        android:layout_marginEnd="7dp"
+        android:layout_marginBottom="7dp"
+        android:text="Aqui va el codigo de barras: "
+        android:textSize="20dp" />
+    <Button
+        android:id="@+id/cancelarDialog"
+        android:layout_width="60dp"
+        android:layout_height="45dp"
+        android:layout_marginTop="15dp"
+        android:layout_marginLeft="50dp"
+        android:layout_marginBottom="25dp"
+        android:layout_below="@+id/CodigoDialog"
+        android:background="@drawable/joinbtn"
+        android:elevation="5dp"
+        android:text="Cancelar"
+        android:textAllCaps="false"
+        android:textColor="@color/whitecolor" />
+    <Button
+        android:id="@+id/AceptarDialog"
+        android:layout_width="60dp"
+        android:layout_height="45dp"
+        android:layout_marginTop="15dp"
+        android:layout_marginLeft="50dp"
+        android:layout_toRightOf="@+id/cancelarDialog"
+        android:layout_marginBottom="25dp"
+        android:layout_below="@+id/CodigoDialog"
+        android:background="@drawable/joinbtn"
+        android:elevation="5dp"
+        android:text="Aceptar"
+        android:textAllCaps="false"
+        android:textColor="@color/whitecolor" />
+
+</RelativeLayout>

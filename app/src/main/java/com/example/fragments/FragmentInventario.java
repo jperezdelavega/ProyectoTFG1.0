@@ -196,5 +196,4 @@ public class FragmentInventario extends Fragment  {
         return valor;
     }
 
-
 }

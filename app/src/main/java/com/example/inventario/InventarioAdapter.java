@@ -88,7 +88,7 @@ public class InventarioAdapter extends BaseExpandableListAdapter {
     }
 //establece la vista de los productos
     @Override
-    public View getChildView(int groupPosition, final int childPosition, boolean isLastChild, View convertView, ViewGroup parent) {
+    public View getChildView(final int groupPosition, final int childPosition, final boolean isLastChild, View convertView, ViewGroup parent) {
         if(convertView == null) convertView = LayoutInflater.from(parent.getContext()).inflate(R.layout.item,parent,false);
         final Producto p = (Producto) getChild(groupPosition,childPosition);
         TextView textViewNombre = convertView.findViewById(R.id.titulo_item);
@@ -198,6 +198,10 @@ public class InventarioAdapter extends BaseExpandableListAdapter {
                         return params;
                     }
                 };
+                FragmentInventario fragmentInventario = new FragmentInventario();
+                int pos = Integer.parseInt(p.getGrupo()) -1;
+                tree.get(fragmentInventario.tipoGrupos[pos]).remove(childPosition);
+                if (tree.get(fragmentInventario.tipoGrupos[pos]).isEmpty()) tree.keySet().remove(fragmentInventario.tipoGrupos[pos]);
                 Refresh(tree);
                 requestQueue.add(stringRequest);
             }
