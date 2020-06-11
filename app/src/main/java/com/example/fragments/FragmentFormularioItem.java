@@ -131,8 +131,9 @@ public class FragmentFormularioItem extends Fragment implements AdapterView.OnIt
         return view;
     }
 
-    private String obtenerIntGrupo(String valorTipo) {
+    public String obtenerIntGrupo(String valorTipo) {
         int resultado = 0;
+        fragmentInventario = new FragmentInventario();
         for (int i=0;i<fragmentInventario.tipoGrupos.length;i++){
             if(valorTipo.equals(fragmentInventario.tipoGrupos[i])) resultado = i+1;
         }

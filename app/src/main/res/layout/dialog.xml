@@ -7,7 +7,7 @@
         android:layout_height="60dp"
         android:id="@+id/dialogLogo"
         android:src="@drawable/logo_menu_circle"
-        android:background="@color/colorPrimaryDark"/>
+        android:background="@drawable/border_cabecera"/>
 
     <TextView
         android:layout_width="wrap_content"
@@ -60,29 +60,47 @@
         android:layout_marginBottom="7dp"
         android:text="Aqui va el codigo de barras: "
         android:textSize="20dp" />
+    <TextView
+        android:id="@+id/unidadesEnDespensaDialog"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/CodigoDialog"
+        android:layout_marginStart="7dp"
+        android:layout_marginTop="15dp"
+        android:layout_marginEnd="7dp"
+        android:layout_marginBottom="7dp"
+        android:text="Unidades en despensa: 0"
+        android:textSize="20dp" />
+    <Spinner
+        android:layout_width="wrap_content"
+        android:layout_height="20dp"
+        android:id="@+id/spinnerDialog"
+        android:layout_below="@+id/unidadesEnDespensaDialog"
+        android:layout_marginLeft="15dp"
+        android:layout_marginBottom="10dp"/>
     <Button
         android:id="@+id/cancelarDialog"
-        android:layout_width="60dp"
+        android:layout_width="65dp"
         android:layout_height="45dp"
         android:layout_marginTop="15dp"
-        android:layout_marginLeft="50dp"
+        android:layout_marginLeft="70dp"
         android:layout_marginBottom="25dp"
-        android:layout_below="@+id/CodigoDialog"
-        android:background="@drawable/joinbtn"
+        android:layout_below="@+id/spinnerDialog"
+        android:background="@drawable/border_cabecera"
         android:elevation="5dp"
         android:text="Cancelar"
         android:textAllCaps="false"
         android:textColor="@color/whitecolor" />
     <Button
         android:id="@+id/AceptarDialog"
-        android:layout_width="60dp"
+        android:layout_width="65dp"
         android:layout_height="45dp"
         android:layout_marginTop="15dp"
         android:layout_marginLeft="50dp"
         android:layout_toRightOf="@+id/cancelarDialog"
         android:layout_marginBottom="25dp"
-        android:layout_below="@+id/CodigoDialog"
-        android:background="@drawable/joinbtn"
+        android:layout_below="@+id/spinnerDialog"
+        android:background="@drawable/border_cabecera"
         android:elevation="5dp"
         android:text="Aceptar"
         android:textAllCaps="false"
