@@ -49,7 +49,6 @@ public class AgregarCodigoBarra extends AppCompatActivity implements AdapterView
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_agregar_codigo_barra);
         requestQueue = Volley.newRequestQueue(this);
         escanearCodigo();
     }
@@ -59,7 +58,6 @@ public class AgregarCodigoBarra extends AppCompatActivity implements AdapterView
         intentIntegrator.setCaptureActivity(CaptureAct.class);
         intentIntegrator.setOrientationLocked(false);
         intentIntegrator.setDesiredBarcodeFormats(IntentIntegrator.ALL_CODE_TYPES);
-        intentIntegrator.setPrompt("Escaner");
         intentIntegrator.initiateScan();
     }
 
@@ -77,10 +75,11 @@ public class AgregarCodigoBarra extends AppCompatActivity implements AdapterView
                 final EditText unidadesProd = view.findViewById(R.id.CampoUnidadesDialog);
                 Button btnCancelar = view.findViewById(R.id.cancelarDialog);
                 Button btnAceptar = view.findViewById(R.id.AceptarDialog);
-
                 FragmentInventario fragmentInventario = new FragmentInventario();
                 final FragmentFormularioItem fragmentFormularioItem = new FragmentFormularioItem();
                 final Spinner spinner = view.findViewById(R.id.spinnerDialog);
+
+
                 //Creamos un adaptador para el desplegable de los tipos de productos
                 ArrayAdapter<String> adapter = new ArrayAdapter<String>(view.getContext(), android.R.layout.simple_spinner_item, fragmentInventario.tipoGrupos);
                 adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
@@ -172,7 +171,7 @@ public class AgregarCodigoBarra extends AppCompatActivity implements AdapterView
                 });
 
             }else{
-                Toast.makeText(this,"No se ha podido leer el codigo",Toast.LENGTH_LONG).show();
+                Toast.makeText(this,"No se ha podido leer el codigo",Toast.LENGTH_SHORT).show();
             }
         }else{
             super.onActivityResult(requestCode,resultCode,data);

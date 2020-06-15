@@ -1,9 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="pk.gb.useraccount">
-    <uses-permission android:name="android.permission.CAMERA"/>
-    <uses-feature android:name="android.hardware.camera"/>
-    <uses-feature android:name="android.hardware.camera.autofocus"/>
+
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -11,11 +9,14 @@
         android:roundIcon="@drawable/logo_menu_circle"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name="com.example.inventario.AgregarCodigoBarra"></activity>
-        <activity android:name="com.example.inventario.CaptureAct"
+        <activity android:name="com.example.inventario.DialogError"></activity>
+        <activity android:name="com.example.inventario.EliminarCodigoBarra" />
+        <activity android:name="com.example.inventario.AgregarCodigoBarra" />
+        <activity
+            android:name="com.example.inventario.CaptureAct"
             android:screenOrientation="fullSensor"
             android:stateNotNeeded="true"
-            android:windowSoftInputMode="stateAlwaysHidden"/>
+            android:windowSoftInputMode="stateAlwaysHidden" />
         <activity android:name="com.example.menu.MenuActivity" />
         <activity
             android:name=".LoginActivity"
@@ -30,6 +31,11 @@
             android:name=".RegisterActivity"
             android:noHistory="true" />
     </application>
+    <uses-feature android:name="android.hardware.camera" />
+
+    <uses-feature android:name="android.hardware.camera.autofocus" />
+    <uses-permission android:name="android.permission.CAMERA" />
+    <uses-permission android:name="android.permission.WAKE_LOCK" />
 
     <uses-permission android:name="android.permission.INTERNET" />
 

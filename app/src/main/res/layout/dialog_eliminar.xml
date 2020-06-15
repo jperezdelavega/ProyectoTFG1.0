@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent" android:layout_height="match_parent">
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="60dp"
+        android:id="@+id/dialogLogo_eliminar"
+        android:src="@drawable/logo_menu_circle"
+        android:background="@drawable/border_cabecera"/>
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/nombreDialog_eliminar"
+        android:text="Nombre: "
+        android:textSize="20dp"
+        android:layout_below="@+id/dialogLogo_eliminar"
+        android:layout_margin="7dp"/>
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/unidadesDialog_eliminar"
+        android:text="Unidades a eliminar: "
+        android:textSize="20dp"
+        android:layout_below="@+id/nombreDialog_eliminar"
+        android:layout_margin="7dp"/>
+    <EditText
+        android:id="@+id/CampoUnidadesDialog_eliminar"
+        android:layout_width="45dp"
+        android:layout_height="35dp"
+        android:layout_margin="7dp"
+        android:layout_toRightOf="@+id/unidadesDialog_eliminar"
+        android:layout_below="@+id/nombreDialog_eliminar"
+        android:background="@drawable/btn"
+        android:elevation="5dp"
+        android:inputType="numberDecimal"
+        android:paddingLeft="15dp"
+        android:textColorHint="@color/fullwhite" />
+    <TextView
+        android:id="@+id/unidadesEnDespensaDialog_eliminar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/unidadesDialog_eliminar"
+        android:layout_marginStart="7dp"
+        android:layout_marginTop="15dp"
+        android:layout_marginEnd="7dp"
+        android:layout_marginBottom="7dp"
+        android:text="Unidades en despensa: "
+        android:textSize="20dp" />
+    <Button
+        android:id="@+id/cancelarDialog_eliminar"
+        android:layout_width="65dp"
+        android:layout_height="45dp"
+        android:layout_marginTop="15dp"
+        android:layout_marginLeft="70dp"
+        android:layout_marginBottom="25dp"
+        android:layout_below="@+id/unidadesEnDespensaDialog_eliminar"
+        android:background="@drawable/border_cabecera"
+        android:elevation="5dp"
+        android:text="Cancelar"
+        android:textAllCaps="false"
+        android:textColor="@color/whitecolor" />
+    <Button
+        android:id="@+id/aceptarDialog_eliminar"
+        android:layout_width="65dp"
+        android:layout_height="45dp"
+        android:layout_marginTop="15dp"
+        android:layout_marginLeft="50dp"
+        android:layout_toRightOf="@+id/cancelarDialog_eliminar"
+        android:layout_marginBottom="25dp"
+        android:layout_below="@+id/unidadesEnDespensaDialog_eliminar"
+        android:background="@drawable/border_cabecera"
+        android:elevation="5dp"
+        android:text="Aceptar"
+        android:textAllCaps="false"
+        android:textColor="@color/whitecolor" />
+</RelativeLayout>

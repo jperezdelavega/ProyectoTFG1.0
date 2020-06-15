@@ -26,6 +26,7 @@ import com.example.fragments.FragmentInventario;
 import com.example.fragments.FragmentListaCompra;
 import com.example.fragments.FragmentMenu;
 import com.example.inventario.AgregarCodigoBarra;
+import com.example.inventario.EliminarCodigoBarra;
 
 public class MenuActivity extends AppCompatActivity implements View.OnClickListener {
     ImageView img_logo;
@@ -102,8 +103,10 @@ public void onClick(View view){
             this.startActivity(intent);
             break;
         case R.id.eliminar_menu:
-            transaction.replace(R.id.contenedor_principal,fragmentEliminar,"eliminar");
-            transaction.addToBackStack("eliminar");
+            //transaction.replace(R.id.contenedor_principal,fragmentEliminar,"eliminar");
+            //transaction.addToBackStack("eliminar");
+            Intent intentEliminar = new Intent(this, EliminarCodigoBarra.class);
+            this.startActivity(intentEliminar);
             break;
         case R.id.home_tool_main:
             while (!getSupportFragmentManager().popBackStackImmediate());
