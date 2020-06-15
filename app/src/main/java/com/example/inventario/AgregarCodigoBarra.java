@@ -40,7 +40,7 @@ import java.util.Map;
 
 public class AgregarCodigoBarra extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
 
-    String URLcomprobarCodigo = "http://3.15.228.207/codigoBarras/pruebaCodigo.php";
+    String URLcomprobarCodigo = "http://3.15.228.207/codigoBarras/valoresDespensaConCodigoAnadir.php";
     String URLIntroducir = "http://3.15.228.207/codigoBarras/anadirProductoCodigoBarra.php";
     String valorTipo;
     String esta = "false";

@@ -58,7 +58,7 @@ public class FragmentInventario extends Fragment  {
     HashMap<String, List<Producto>> listaGlobal ;
     InventarioAdapter inventarioAdapter;
     ProgressBar progressBar;
-    public String[] tipoGrupos = {"Verdura","Fruta","Lácteos","Carne","Pescado","Droguería","Cereales","Pasta","Legumbres","Procesados","Conservas","Aceite","Azucarados","Frutos secos","Otros"};
+    public String[] tipoGrupos = {"Verdura","Fruta","Lácteos","Carne","Pescado","Droguería","Cereales","Pasta","Legumbres","Snacks","Conservas","Bollería","Bebidas","Congelados","Aliños","Otros"};
     FloatingActionButton addButton;
     FragmentFormularioItem fragmentFormularioItem;
     public FragmentInventario() {
@@ -187,10 +187,52 @@ public class FragmentInventario extends Fragment  {
         int valor =0;
         switch (key){
             case "Verdura":
-                valor = R.drawable.ic_lechuga;
+            valor = R.drawable.ic_verdura;
                 break;
             case "Fruta":
-                valor = R.drawable.ic_manzana;
+            valor = R.drawable.ic_fruta;
+                break;
+            case "Lácteos":
+                valor = R.drawable.ic_lacteos;
+                break;
+            case "Carne":
+                valor = R.drawable.ic_carne;
+                break;
+            case "Pescado":
+                valor = R.drawable.ic_pescado;
+                break;
+            case "Droguería":
+                valor = R.drawable.ic_drogueria;
+                break;
+            case "Cereales":
+                valor = R.drawable.ic_cereales;
+                break;
+            case "Pasta":
+                valor = R.drawable.ic_pasta;
+                break;
+            case "Legumbres":
+                valor = R.drawable.ic_legumbre;
+                break;
+            case "Snacks":
+                valor = R.drawable.ic_snack;
+                break;
+            case "Conservas":
+                valor = R.drawable.ic_conservas;
+                break;
+            case "Bollería":
+                valor = R.drawable.ic_bolleria;
+                break;
+            case "Bebidas":
+                valor = R.drawable.ic_bebidas;
+                break;
+            case "Congelados":
+                valor = R.drawable.ic_congelados;
+                break;
+            case "Aliños":
+                valor = R.drawable.ic_especias;
+                break;
+            case "Otros":
+                valor = R.drawable.ic_otros;
                 break;
         }
         return valor;

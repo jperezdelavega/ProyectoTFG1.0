@@ -19,7 +19,7 @@
      android:layout_height="wrap_content"
      android:layout_toRightOf="@+id/cabecera_grupo"
      android:id="@+id/imgGrupos"
-     android:src="@drawable/ic_manzana"
+     android:src="@drawable/ic_verdura"
 
      android:layout_marginTop="17dp"
 />
