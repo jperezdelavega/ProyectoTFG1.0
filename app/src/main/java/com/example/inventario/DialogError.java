@@ -24,4 +24,5 @@ public class DialogError extends AppCompatActivity {
         AlertDialog dialog = builder.create();
         dialog.show();
     }
+
 }

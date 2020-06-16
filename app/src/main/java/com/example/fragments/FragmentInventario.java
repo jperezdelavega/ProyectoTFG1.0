@@ -113,7 +113,6 @@ public class FragmentInventario extends Fragment  {
         listView.setAdapter(inventarioAdapter);
         crearInventario(view);
 
-
         Log.d("menu","entra en el menu");
 
         return view;

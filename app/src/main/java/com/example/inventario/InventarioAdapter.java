@@ -1,14 +1,23 @@
 package com.example.inventario;
 
+import android.app.AlertDialog;
+import android.app.Dialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.SharedPreferences;
 import android.graphics.drawable.Drawable;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.BaseExpandableListAdapter;
+import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -19,8 +28,12 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
+import com.example.fragments.FragmentFormularioItem;
 import com.example.fragments.FragmentInventario;
+import com.google.android.material.dialog.InsetDialogOnTouchListener;
 
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -34,8 +47,11 @@ public class InventarioAdapter extends BaseExpandableListAdapter {
     private String[] cabeceraGrupo;
     String URL = "http://3.15.228.207/inventario/anadirOeliminarUnidades.php";
     String URLDelete = "http://3.15.228.207/inventario/eliminarProductoManual.php";
+    String URLEdit = "http://3.15.228.207/inventario/editarProducto.php";
     RequestQueue requestQueue;
-//Inicializa el arbol donde se guarda key = nombre del grupo, values = productos del grupo
+    private String valorTipo;
+
+    //Inicializa el arbol donde se guarda key = nombre del grupo, values = productos del grupo
     public InventarioAdapter(HashMap<String, List<Producto>> tree) {
         this.tree = tree;
         cabeceraGrupo = tree.keySet().toArray(new String[0]);
@@ -88,7 +104,7 @@ public class InventarioAdapter extends BaseExpandableListAdapter {
     }
 //establece la vista de los productos
     @Override
-    public View getChildView(final int groupPosition, final int childPosition, final boolean isLastChild, View convertView, ViewGroup parent) {
+    public View getChildView(final int groupPosition, final int childPosition, final boolean isLastChild, View convertView, final ViewGroup parent) {
         if(convertView == null) convertView = LayoutInflater.from(parent.getContext()).inflate(R.layout.item,parent,false);
         final Producto p = (Producto) getChild(groupPosition,childPosition);
         TextView textViewNombre = convertView.findViewById(R.id.titulo_item);
@@ -166,10 +182,112 @@ public class InventarioAdapter extends BaseExpandableListAdapter {
                 requestQueue.add(stringRequest);
             }
         });
-        //Boton de establecer numero de unidades limite configurado
+        //Boton de editar el producto
         buttonEdit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                AlertDialog.Builder alertDialog = new AlertDialog.Builder(parent.getContext());
+                View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.dialog,null);
+                final TextView barCode = view.findViewById(R.id.CodigoDialog);
+                final TextView unidadesDespensa = view.findViewById(R.id.unidadesEnDespensaDialog);
+                final TextView textoUnidadesLimite = view.findViewById(R.id.unidadesDialog);
+                final EditText nombreProd = view.findViewById(R.id.nombreDialog);
+                final EditText unidadesProd = view.findViewById(R.id.CampoUnidadesDialog);
+                Button btnCancelar = view.findViewById(R.id.cancelarDialog);
+                Button btnAceptar = view.findViewById(R.id.AceptarDialog);
+                final FragmentInventario fragmentInventario = new FragmentInventario();
+
+                final Spinner spinner = view.findViewById(R.id.spinnerDialog);
+                ArrayAdapter<String> adapter = new ArrayAdapter<String>(view.getContext(), android.R.layout.simple_spinner_item, fragmentInventario.tipoGrupos);
+                adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+                spinner.setAdapter(adapter);
+                spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+                    @Override
+                    public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                        valorTipo = parent.getItemAtPosition(position).toString();
+                    }
+
+                    @Override
+                    public void onNothingSelected(AdapterView<?> parent) {
+                        valorTipo = "otros";
+                    }
+                });
+                final String unidadesLimite = (p.getUnidadeLimite().equals("")) ? "0" : p.getUnidadeLimite();
+                unidadesDespensa.setText("Unidades límite acltuales: "+ unidadesLimite);
+                barCode.setText("Codigo de barras: "+ p.getCod_barras());
+                textoUnidadesLimite.setText("Unidades límite: ");
+                unidadesProd.setText(p.getUnidadeLimite());
+                nombreProd.setText(p.getNombre());
+                spinner.setSelection(Integer.parseInt(p.getGrupo())-1);
+
+                alertDialog.setView(view);
+                final AlertDialog dialog = alertDialog.create();
+
+                //Establecemos el boton de cancelar del dialog
+                btnCancelar.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        dialog.dismiss();
+                    }
+                });
+
+                //Boton de aceptar del dialog
+                btnAceptar.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        if(nombreProd.getText().toString().matches("") || unidadesProd.getText().toString().matches("")){
+                            AlertDialog.Builder error = new AlertDialog.Builder(parent.getContext());
+                            error.setTitle("Error");
+                            error.setMessage("Todos los campos tienen que estar completos");
+                            error.create().show();
+                        }else{
+                            StringRequest stringRequestEdit = new StringRequest(Request.Method.POST, URLEdit, new Response.Listener<String>() {
+                                @Override
+                                public void onResponse(String response) {
+                                    dialog.dismiss();
+                                }
+                            }, new Response.ErrorListener() {
+                                @Override
+                                public void onErrorResponse(VolleyError error) {
+
+                                }
+                            }){
+                                @Override
+                                protected Map<String, String> getParams() throws AuthFailureError {
+                                    Map<String,String> params = new HashMap<>();
+                                    SharedPreferences preferences = parent.getContext().getSharedPreferences("credenciales", Context.MODE_PRIVATE);
+                                    String user = preferences.getString("user","null");
+                                    params.put("email",user);
+                                    params.put("codigo", p.getCod_barras());
+                                    params.put("nombre", nombreProd.getText().toString());
+                                    List array = Arrays.asList(fragmentInventario.tipoGrupos);
+                                    params.put("grupo",Integer.toString(array.indexOf(valorTipo) + 1 ));
+                                    params.put("unidades_limite",unidadesProd.getText().toString());
+                                    return params;
+                                }
+                            };
+                            List array = Arrays.asList(fragmentInventario.tipoGrupos);
+                            p.setUnidadeLimite(unidadesProd.getText().toString());
+                            p.setNombre(nombreProd.getText().toString());
+                            int pos = Integer.parseInt(p.getGrupo()) -1;
+                            tree.get(fragmentInventario.tipoGrupos[pos]).remove(childPosition);
+                            if (tree.get(fragmentInventario.tipoGrupos[pos]).isEmpty()) tree.keySet().remove(fragmentInventario.tipoGrupos[pos]);
+
+                            if(tree.keySet().contains(valorTipo)){
+                                tree.get(valorTipo).add(p);
+                            }else{
+                                List<Producto> lista = new ArrayList<>();
+                                lista.add(p);
+                                tree.put(valorTipo,lista);
+                            }
+                            p.setGrupo(Integer.toString(array.indexOf(valorTipo) + 1 ));
+                            Refresh(tree);
+                            requestQueue.add(stringRequestEdit);
+
+                        }
+                    }
+                });
+                dialog.show();
 
             }
         });
