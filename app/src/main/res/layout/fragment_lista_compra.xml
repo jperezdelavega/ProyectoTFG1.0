@@ -2,12 +2,42 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context="com.example.fragments.FragmentListaCompra">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
+    <ProgressBar
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:id="@+id/progressBarCompra"
+        android:layout_gravity="center"
+        ></ProgressBar>
+    <ExpandableListView
+        android:id="@+id/ListaCompraExpandible"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="@string/hello_blank_fragment" />
+        android:layout_height="match_parent" />
+
+    <com.github.clans.fab.FloatingActionMenu
+        android:id="@+id/botonActualizarLista"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/ic_add_inventory"
+        android:layout_gravity="end|bottom"
+        android:layout_margin="20dp"
+        >
+        <com.github.clans.fab.FloatingActionButton
+            android:id="@+id/agregarAListaForm"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:fab_size="mini"
+        app:fab_label="Agrega un producto"/>
+        <com.github.clans.fab.FloatingActionButton
+            android:id="@+id/autocompletarListaCommpra"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:fab_size="mini"
+            app:fab_label="Autocompleta tu lista de la compra"/>
+
+    </com.github.clans.fab.FloatingActionMenu>
+
 
 </FrameLayout>

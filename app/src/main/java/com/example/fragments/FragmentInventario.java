@@ -166,7 +166,7 @@ public class FragmentInventario extends Fragment  {
 
     }
 
-    private void agregaACadaGrupo(List<Producto> lista) {
+    public void agregaACadaGrupo(List<Producto> lista) {
         for(Producto p : lista){
             String key = tipoGrupos[Integer.parseInt(p.getGrupo())-1];
             if (listaGlobal.containsKey(key)){

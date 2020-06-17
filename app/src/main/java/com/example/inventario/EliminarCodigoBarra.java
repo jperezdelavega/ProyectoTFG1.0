@@ -119,7 +119,7 @@ public class EliminarCodigoBarra extends AppCompatActivity {
                 aceptarbttn.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        if (unidadesEnDespensa[0]>Integer.parseInt(unidadesAEliminar.getText().toString())){
+                        if (unidadesEnDespensa[0]>=Integer.parseInt(unidadesAEliminar.getText().toString())){
                             StringRequest stringRequestAceptar = new StringRequest(Request.Method.POST, URLEliminar, new Response.Listener<String>() {
                                 @Override
                                 public void onResponse(String response) {

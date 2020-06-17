@@ -3,10 +3,7 @@ package com.example.menu;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.cardview.widget.CardView;
-import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
-import pk.gb.useraccount.LoginActivity;
 import pk.gb.useraccount.R;
 
 import android.content.Context;
@@ -19,8 +16,6 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.Toast;
 
-import com.example.fragments.FragmentAgregar;
-import com.example.fragments.FragmentEliminar;
 import com.example.fragments.FragmentFormularioItem;
 import com.example.fragments.FragmentInventario;
 import com.example.fragments.FragmentListaCompra;
@@ -33,8 +28,7 @@ public class MenuActivity extends AppCompatActivity implements View.OnClickListe
     FragmentMenu fragmentMenu;
     FragmentListaCompra fragmentListaCompra;
     FragmentInventario fragmentInventario;
-    FragmentAgregar fragmentAgregar;
-    FragmentEliminar fragmentEliminar;
+
     FragmentFormularioItem fragmentFormularioItem;
     Toolbar toolbar;
     CardView inventario,lista_compra,eliminar,agregar;
@@ -51,8 +45,6 @@ public class MenuActivity extends AppCompatActivity implements View.OnClickListe
         getSupportFragmentManager().beginTransaction().add(R.id.contenedor_principal,fragmentMenu).commit();
         fragmentInventario = new FragmentInventario();
         fragmentListaCompra = new FragmentListaCompra();
-        fragmentAgregar = new FragmentAgregar();
-        fragmentEliminar = new FragmentEliminar();
         fragmentFormularioItem = new FragmentFormularioItem();
 
     }

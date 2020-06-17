@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="60dp"
+        android:id="@+id/dialogLogoLista"
+        android:src="@drawable/logo_menu_circle"
+        android:background="@drawable/border_cabecera"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/nombreLista"
+        android:text="Nombre: "
+        android:textSize="20dp"
+        android:layout_below="@+id/dialogLogoLista"
+        android:layout_margin="7dp"/>
+
+    <EditText
+        android:id="@+id/nombreDialogLista"
+        android:layout_width="280dp"
+        android:layout_height="35dp"
+        android:layout_below="@+id/dialogLogoLista"
+        android:layout_marginStart="7dp"
+        android:layout_marginLeft="15dp"
+        android:layout_marginTop="5dp"
+        android:layout_marginEnd="7dp"
+        android:layout_marginBottom="7dp"
+        android:layout_toRightOf="@+id/nombreLista"
+        android:background="@drawable/btn"
+        android:elevation="5dp"
+        android:inputType="textNoSuggestions"
+        android:paddingLeft="15dp"
+        android:textColorHint="@color/fullwhite" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/unidadesDialogLista"
+        android:text="Unidades: "
+        android:textSize="20dp"
+        android:layout_below="@+id/nombreDialogLista"
+        android:layout_margin="7dp"/>
+    <EditText
+        android:id="@+id/CampoUnidadesDialogLista"
+        android:layout_width="45dp"
+        android:layout_height="35dp"
+        android:layout_margin="7dp"
+        android:layout_toRightOf="@+id/unidadesDialogLista"
+        android:layout_below="@+id/nombreDialogLista"
+        android:background="@drawable/btn"
+        android:elevation="5dp"
+        android:inputType="numberDecimal"
+        android:paddingLeft="15dp"
+        android:textColorHint="@color/fullwhite" />
+    <Spinner
+        android:layout_width="wrap_content"
+        android:layout_height="20dp"
+        android:id="@+id/spinnerDialogLista"
+        android:layout_below="@+id/unidadesDialogLista"
+        android:layout_marginTop="10dp"
+        android:layout_marginLeft="15dp"
+        android:layout_marginBottom="10dp"/>
+    <Button
+        android:id="@+id/cancelarDialogLista"
+        android:layout_width="65dp"
+        android:layout_height="45dp"
+        android:layout_marginTop="15dp"
+        android:layout_marginLeft="70dp"
+        android:layout_marginBottom="25dp"
+        android:layout_below="@+id/spinnerDialogLista"
+        android:background="@drawable/border_cabecera"
+        android:elevation="5dp"
+        android:text="Cancelar"
+        android:textAllCaps="false"
+        android:textColor="@color/whitecolor" />
+    <Button
+        android:id="@+id/AceptarDialogLista"
+        android:layout_width="65dp"
+        android:layout_height="45dp"
+        android:layout_marginTop="15dp"
+        android:layout_marginLeft="50dp"
+        android:layout_toRightOf="@+id/cancelarDialogLista"
+        android:layout_marginBottom="25dp"
+        android:layout_below="@+id/spinnerDialogLista"
+        android:background="@drawable/border_cabecera"
+        android:elevation="5dp"
+        android:text="Aceptar"
+        android:textAllCaps="false"
+        android:textColor="@color/whitecolor" />
+
+</RelativeLayout>

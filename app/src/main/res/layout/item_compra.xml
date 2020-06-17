@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    app:cardCornerRadius="3dp"
+    app:cardElevation="3dp"
+    app:cardUseCompatPadding="true"
+    android:id="@+id/card_itemCompra"
+    >
+    <androidx.cardview.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:clickable="true">
+
+        <RelativeLayout
+            android:id="@+id/margen_item"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+
+            <ImageButton
+                android:id="@+id/deleteItemCompra"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_below="@+id/titulo_itemCompra"
+                android:layout_marginLeft="8dp"
+                android:background="@drawable/circle_menu_dark"
+                android:src="@drawable/ic_delete" />
+
+            <ImageButton
+                android:id="@+id/button_item_addCompra"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_below="@+id/titulo_itemCompra"
+                android:layout_alignParentRight="true"
+                android:layout_margin="5dp"
+                android:background="@drawable/circle_menu_greenmenu"
+                android:clickable="true"
+                android:src="@drawable/ic_add_menu" />
+
+
+            <ImageButton
+                android:id="@+id/button_item_deleteCompra"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_below="@+id/titulo_itemCompra"
+                android:layout_margin="5dp"
+                android:layout_toLeftOf="@+id/unidades_itemCompra"
+                android:background="@drawable/circle_menu_red"
+                android:clickable="true"
+                android:src="@drawable/ic_remove_menu" />
+
+
+            <TextView
+                android:id="@+id/unidades_itemCompra"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_below="@id/titulo_itemCompra"
+                android:layout_margin="5dp"
+                android:layout_toLeftOf="@+id/button_item_addCompra"
+                android:background="@drawable/circle_menu_dark"
+                android:text="4"
+                android:textAlignment="center"
+                android:textColor="@color/whitecolor"
+                android:textSize="19sp" />
+
+            <TextView
+                android:id="@+id/titulo_itemCompra"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="8dp"
+                android:text="Pasta gallina blanca 500G"
+                android:textColor="@color/blackcolor"
+                android:textSize="20sp"
+                android:textStyle="bold" />
+
+        </RelativeLayout>
+
+    </androidx.cardview.widget.CardView>
+
+
+</FrameLayout>
