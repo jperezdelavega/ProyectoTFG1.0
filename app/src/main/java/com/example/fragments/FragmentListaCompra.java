@@ -161,8 +161,20 @@ public class FragmentListaCompra extends Fragment {
                     @Override
                     public void onResponse(String response) {
                         Toast.makeText(getContext(),response,Toast.LENGTH_SHORT);
-
+                        Producto p = new Producto();
+                        p.setNombre(nombreProd.getText().toString());
+                        p.setUnidades(uds.getText().toString());
+                        if(listaGlobal.keySet().contains(valorTipo)){
+                            listaGlobal.get(valorTipo).add(p);
+                            listadelaCompraAdapter.Refresh(listaGlobal);
+                        }else {
+                            ArrayList<Producto> lista = new ArrayList<>();
+                            lista.add(p);
+                            listaGlobal.put(valorTipo,lista);
+                            listadelaCompraAdapter.Refresh(listaGlobal);
+                        }
                         alertDialog.dismiss();
+                        addButton.close(true);
                     }
                 }, new Response.ErrorListener() {
                     @Override
