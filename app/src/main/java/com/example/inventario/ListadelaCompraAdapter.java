@@ -30,7 +30,7 @@ public class ListadelaCompraAdapter extends BaseExpandableListAdapter {
     private String[] cabeceraGrupo;
     RequestQueue requestQueue;
     String URLListaCompraAgregaElimina = "http://3.15.228.207/listaCompra/agregaOeliminaListaCompra.php";
-    String URLBorrar = "";
+    String URLBorrar = "http://3.15.228.207/listaCompra/eliminarProductoListaCompra.php";
 
     public ListadelaCompraAdapter(HashMap<String, List<Producto>> tree){
         this.tree=tree;
@@ -83,7 +83,7 @@ public class ListadelaCompraAdapter extends BaseExpandableListAdapter {
     }
 
     @Override
-    public View getChildView(int groupPosition, int childPosition, boolean isLastChild, View convertView, ViewGroup parent) {
+    public View getChildView(int groupPosition, final int childPosition, boolean isLastChild, View convertView, ViewGroup parent) {
         if(convertView == null) convertView = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_compra,parent,false);
         final Producto p = (Producto) getChild(groupPosition,childPosition);
         TextView textViewNombre = convertView.findViewById(R.id.titulo_itemCompra);
@@ -112,9 +112,20 @@ public class ListadelaCompraAdapter extends BaseExpandableListAdapter {
                 }){
                     @Override
                     protected Map<String, String> getParams() throws AuthFailureError {
-                        return super.getParams();
+                        Map<String,String> params = new HashMap<>();
+                        SharedPreferences preferences = finalConvertView.getContext().getSharedPreferences("credenciales", Context.MODE_PRIVATE);
+                        String user = preferences.getString("user","null");
+                        params.put("email",user);
+                        params.put("nombre",p.getNombre());
+                        return params;
                     }
                 };
+                FragmentInventario fragmentInventario = new FragmentInventario();
+                int pos = Integer.parseInt(p.getGrupo()) -1;
+                tree.get(fragmentInventario.tipoGrupos[pos]).remove(childPosition);
+                if (tree.get(fragmentInventario.tipoGrupos[pos]).isEmpty()) tree.keySet().remove(fragmentInventario.tipoGrupos[pos]);
+                Refresh(tree);
+                requestQueue.add(stringRequestEliminarProd);
             }
         });
 
