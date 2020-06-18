@@ -30,6 +30,7 @@ import com.github.clans.fab.FloatingActionButton;
 import com.github.clans.fab.FloatingActionMenu;
 
 import org.json.JSONArray;
+import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.lang.reflect.Array;
@@ -61,6 +62,8 @@ public class FragmentListaCompra extends Fragment {
     private RequestQueue requestQueue;
     String URLCargaListaCompra = "http://3.15.228.207/listaCompra/cargarListaCompra.php";
     String URLAgrega = "http://3.15.228.207/listaCompra/anadirListaCompra.php";
+    String URLCompleta = "http://3.15.228.207/listaCompra/completarListaCompra.php";
+    String URLBorrar = "http://3.15.228.207/listaCompra/borrarListaCompra.php";
     final FragmentInventario fragmentInventario = new FragmentInventario();
     String valorTipo;
     AlertDialog alertDialog;
@@ -106,6 +109,7 @@ public class FragmentListaCompra extends Fragment {
 
         FloatingActionButton bttnDialog = view.findViewById(R.id.agregarAListaForm);
         FloatingActionButton btnnRellenar = view.findViewById(R.id.autocompletarListaCommpra);
+        FloatingActionButton btnBorrar = view.findViewById(R.id.borrarListaCompra);
         ExpandableListView listView = view.findViewById(R.id.ListaCompraExpandible);
 
         listaGlobal = new HashMap<>();
@@ -124,7 +128,91 @@ public class FragmentListaCompra extends Fragment {
                 agregarElementoALista(vdialog);
             }
         });
+
+        btnnRellenar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                autoCompletarLista();
+            }
+        });
+        btnBorrar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                borrarListaCompra();
+            }
+        });
         return view;
+    }
+
+    private void borrarListaCompra() {
+
+        StringRequest stringRequestBorrar = new StringRequest(Request.Method.POST, URLBorrar, new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+                listaGlobal.clear();
+                listadelaCompraAdapter.Refresh(listaGlobal);
+                addButton.close(true);
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+
+            }
+        }){
+            @Override
+            protected Map<String, String> getParams() throws AuthFailureError {
+                Map<String,String> map = new HashMap<>();
+                SharedPreferences preferences = getContext().getSharedPreferences("credenciales",Context.MODE_PRIVATE);
+                String user = preferences.getString("user","null");
+                map.put("email",user);
+                return map;
+            }
+        };
+        requestQueue.add(stringRequestBorrar);
+    }
+
+    private void autoCompletarLista() {
+        StringRequest stringRequestCompletar = new StringRequest(Request.Method.POST, URLCompleta, new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+                List<Producto> lista = new ArrayList<>();
+                try {
+                    JSONObject obj = new JSONObject(response);
+                    if(obj.getString("vacia").equals("false")){
+                        JSONArray arrayProd = obj.getJSONArray("productos");
+                        for(int i = 0;i<arrayProd.length();i++){
+                            Producto p = new Producto();
+                            p.setNombre(arrayProd.getJSONObject(i).getString("nombre"));
+                            p.setGrupo(arrayProd.getJSONObject(i).getString("grupo"));
+                            p.setUnidades(arrayProd.getJSONObject(i).getString("unidades"));
+                            lista.add(p);
+                        }
+                        agregaACadaGrupo(lista);
+                        listadelaCompraAdapter.Refresh(listaGlobal);
+
+                    }
+                    addButton.close(true);
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+
+            }
+        }){
+            @Override
+            protected Map<String, String> getParams() throws AuthFailureError {
+                Map<String,String> map = new HashMap<>();
+                SharedPreferences preferences = getContext().getSharedPreferences("credenciales",Context.MODE_PRIVATE);
+                String user = preferences.getString("user","null");
+                map.put("email",user);
+                return map;
+            }
+        };
+        requestQueue.add(stringRequestCompletar);
     }
 
     private void agregarElementoALista(View vdialog) {

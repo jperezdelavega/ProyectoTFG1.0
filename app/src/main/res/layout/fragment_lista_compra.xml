@@ -36,6 +36,12 @@
             android:layout_height="wrap_content"
             app:fab_size="mini"
             app:fab_label="Autocompleta tu lista de la compra"/>
+        <com.github.clans.fab.FloatingActionButton
+            android:id="@+id/borrarListaCompra"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:fab_size="mini"
+            app:fab_label="Borra la lista de la compra"/>
 
     </com.github.clans.fab.FloatingActionMenu>
 

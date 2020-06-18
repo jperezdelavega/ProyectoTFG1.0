@@ -1,5 +1,7 @@
 package com.example.inventario;
 
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -8,12 +10,18 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.android.volley.AuthFailureError;
+import com.android.volley.Request;
 import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.example.fragments.FragmentInventario;
 
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import pk.gb.useraccount.R;
 
@@ -21,7 +29,7 @@ public class ListadelaCompraAdapter extends BaseExpandableListAdapter {
     private HashMap<String, List<Producto>> tree ;
     private String[] cabeceraGrupo;
     RequestQueue requestQueue;
-    String URLListaCompraAgregaElimina = "";
+    String URLListaCompraAgregaElimina = "http://3.15.228.207/listaCompra/agregaOeliminaListaCompra.php";
     String URLBorrar = "";
 
     public ListadelaCompraAdapter(HashMap<String, List<Producto>> tree){
@@ -87,6 +95,95 @@ public class ListadelaCompraAdapter extends BaseExpandableListAdapter {
         final View finalConvertView = convertView;
         textViewNombre.setText(p.getNombre());
         textViewUnidades.setText(p.getUnidades());
+
+        buttonDelete.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                StringRequest stringRequestEliminarProd = new StringRequest(Request.Method.POST, URLBorrar, new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String response) {
+
+                    }
+                }, new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+
+                    }
+                }){
+                    @Override
+                    protected Map<String, String> getParams() throws AuthFailureError {
+                        return super.getParams();
+                    }
+                };
+            }
+        });
+
+        buttonAddUnit.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(Integer.parseInt(p.getUnidades()) + 1 <=99){
+                    StringRequest stringRequestAgregar = new StringRequest(Request.Method.POST, URLListaCompraAgregaElimina, new Response.Listener<String>() {
+                        @Override
+                        public void onResponse(String response) {
+
+                        }
+                    }, new Response.ErrorListener() {
+                        @Override
+                        public void onErrorResponse(VolleyError error) {
+
+                        }
+                    }){
+                        @Override
+                        protected Map<String, String> getParams() throws AuthFailureError {
+                            Map<String,String> params = new HashMap<>();
+                            SharedPreferences preferences = finalConvertView.getContext().getSharedPreferences("credenciales", Context.MODE_PRIVATE);
+                            String user = preferences.getString("user","null");
+                            params.put("email",user);
+                            params.put("nombre",p.getNombre());
+                            params.put("accion","agrega");
+                            return params;
+                        }
+                    };
+                    int unidadAct = Integer.parseInt(p.getUnidades()) + 1;
+                    p.setUnidades(Integer.toString(unidadAct));
+                    Refresh(tree);
+                    requestQueue.add(stringRequestAgregar);
+                }
+            }
+        });
+
+        buttonDeleteUnit.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                StringRequest stringRequestEliminar = new StringRequest(Request.Method.POST, URLListaCompraAgregaElimina, new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String response) {
+
+                    }
+                }, new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+
+                    }
+                }){
+                    @Override
+                    protected Map<String, String> getParams() throws AuthFailureError {
+                        Map<String,String> params = new HashMap<>();
+                        SharedPreferences preferences = finalConvertView.getContext().getSharedPreferences("credenciales", Context.MODE_PRIVATE);
+                        String user = preferences.getString("user","null");
+                        params.put("email",user);
+                        params.put("nombre",p.getNombre());
+                        params.put("accion","elimina");
+                        return params;
+                    }
+                };
+                int unidadAct = Integer.parseInt(p.getUnidades()) - 1;
+                p.setUnidades(Integer.toString(unidadAct));
+                Refresh(tree);
+                requestQueue.add(stringRequestEliminar);
+
+            }
+        });
 
         return convertView;
     }

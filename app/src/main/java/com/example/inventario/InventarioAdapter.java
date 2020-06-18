@@ -122,64 +122,72 @@ public class InventarioAdapter extends BaseExpandableListAdapter {
         buttonAddUnit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                StringRequest stringRequest = new StringRequest(Request.Method.POST, URL, new Response.Listener<String>() {
-                    @Override
-                    public void onResponse(String response) {
 
-                    }
-                }, new Response.ErrorListener() {
-                    @Override
-                    public void onErrorResponse(VolleyError error) {
-                        Toast.makeText(finalConvertView.getContext(),error.toString(),Toast.LENGTH_SHORT).show();
-                    }
-                }){
-                    @Override
-                    protected Map<String, String> getParams() throws AuthFailureError {
-                        Map<String,String> params = new HashMap<>();
-                        SharedPreferences preferences = finalConvertView.getContext().getSharedPreferences("credenciales", Context.MODE_PRIVATE);
-                        String user = preferences.getString("user","null");
-                        params.put("email",user);
-                        params.put("nombre",p.getNombre());
-                        params.put("accion","agrega");
-                        return params;
-                    }
-                };
-                int unidadAct = Integer.parseInt(p.getUnidades()) + 1;
-                p.setUnidades(Integer.toString(unidadAct));
-                Refresh(tree);
-                requestQueue.add(stringRequest);
+                if (Integer.parseInt(p.getUnidades()) + 1 <=99){
+                    StringRequest stringRequest = new StringRequest(Request.Method.POST, URL, new Response.Listener<String>() {
+                        @Override
+                        public void onResponse(String response) {
+
+                        }
+                    }, new Response.ErrorListener() {
+                        @Override
+                        public void onErrorResponse(VolleyError error) {
+                            Toast.makeText(finalConvertView.getContext(),error.toString(),Toast.LENGTH_SHORT).show();
+                        }
+                    }){
+                        @Override
+                        protected Map<String, String> getParams() throws AuthFailureError {
+                            Map<String,String> params = new HashMap<>();
+                            SharedPreferences preferences = finalConvertView.getContext().getSharedPreferences("credenciales", Context.MODE_PRIVATE);
+                            String user = preferences.getString("user","null");
+                            params.put("email",user);
+                            params.put("nombre",p.getNombre());
+                            params.put("accion","agrega");
+                            return params;
+                        }
+                    };
+                    int unidadAct = Integer.parseInt(p.getUnidades()) + 1;
+                    p.setUnidades(Integer.toString(unidadAct));
+                    Refresh(tree);
+                    requestQueue.add(stringRequest);
+                }
+
             }
         });
 //Boton eliminar unidades configurado
         buttonDeleteUnit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                StringRequest stringRequest = new StringRequest(Request.Method.POST, URL, new Response.Listener<String>() {
-                    @Override
-                    public void onResponse(String response) {
 
-                    }
-                }, new Response.ErrorListener() {
-                    @Override
-                    public void onErrorResponse(VolleyError error) {
-                        Toast.makeText(finalConvertView.getContext(),error.toString(),Toast.LENGTH_SHORT).show();
-                    }
-                }){
-                    @Override
-                    protected Map<String, String> getParams() throws AuthFailureError {
-                        Map<String,String> params = new HashMap<>();
-                        SharedPreferences preferences = finalConvertView.getContext().getSharedPreferences("credenciales", Context.MODE_PRIVATE);
-                        String user = preferences.getString("user","null");
-                        params.put("email",user);
-                        params.put("nombre",p.getNombre());
-                        params.put("accion","elimina");
-                        return params;
-                    }
-                };
-                int unidadAct = Integer.parseInt(p.getUnidades()) - 1;
-                p.setUnidades(Integer.toString(unidadAct));
-                Refresh(tree);
-                requestQueue.add(stringRequest);
+                if (Integer.parseInt(p.getUnidades()) -1 >= 0){
+                    StringRequest stringRequest = new StringRequest(Request.Method.POST, URL, new Response.Listener<String>() {
+                        @Override
+                        public void onResponse(String response) {
+
+                        }
+                    }, new Response.ErrorListener() {
+                        @Override
+                        public void onErrorResponse(VolleyError error) {
+                            Toast.makeText(finalConvertView.getContext(),error.toString(),Toast.LENGTH_SHORT).show();
+                        }
+                    }){
+                        @Override
+                        protected Map<String, String> getParams() throws AuthFailureError {
+                            Map<String,String> params = new HashMap<>();
+                            SharedPreferences preferences = finalConvertView.getContext().getSharedPreferences("credenciales", Context.MODE_PRIVATE);
+                            String user = preferences.getString("user","null");
+                            params.put("email",user);
+                            params.put("nombre",p.getNombre());
+                            params.put("accion","elimina");
+                            return params;
+                        }
+                    };
+                    int unidadAct = Integer.parseInt(p.getUnidades()) - 1;
+                    p.setUnidades(Integer.toString(unidadAct));
+                    Refresh(tree);
+                    requestQueue.add(stringRequest);
+                }
+
             }
         });
         //Boton de editar el producto
