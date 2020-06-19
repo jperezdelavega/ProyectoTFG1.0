@@ -57,18 +57,18 @@
             android:layout_height="45dp"
             android:layout_gravity="center"
             android:layout_marginTop="30dp"
-            android:background="@drawable/joinbtn"
+            android:background="@drawable/border_cabecera"
             android:text="LogIn"
             android:textAllCaps="false"
             android:textColor="@color/whitecolor" />
 
         <Button
             android:id="@+id/registrar_button"
-            android:layout_width="280dp"
+            android:layout_width="250dp"
             android:layout_height="45dp"
             android:layout_gravity="center"
             android:layout_marginTop="30dp"
-            android:background="@drawable/joinbtn"
+            android:background="@drawable/border_cabecera"
             android:onClick="Ir_registro"
             android:text="Sign in"
             android:textAllCaps="false"

@@ -94,7 +94,7 @@
             android:layout_width="280dp"
             android:layout_height="45dp"
             android:layout_marginTop="25dp"
-            android:background="@drawable/joinbtn"
+            android:background="@drawable/border_cabecera"
             android:elevation="5dp"
             android:text="Join Us"
             android:textAllCaps="false"

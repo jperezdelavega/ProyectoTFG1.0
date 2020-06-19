@@ -71,6 +71,16 @@
         android:layout_marginBottom="7dp"
         android:text="Unidades en despensa: 0"
         android:textSize="20dp" />
+    <ImageButton
+        android:layout_width="35dp"
+        android:layout_height="35dp"
+        android:id="@+id/btnBorrarNombreDialog"
+        android:layout_below="@+id/nombreDialog"
+        android:layout_toRightOf="@id/CampoUnidadesDialog"
+        android:src="@drawable/ic_delete"
+        android:background="@drawable/circle_menu_dark"
+        android:layout_marginTop="7dp"
+        android:layout_marginLeft="50dp"/>
     <Spinner
         android:layout_width="wrap_content"
         android:layout_height="20dp"

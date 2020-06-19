@@ -1,7 +1,5 @@
 package pk.gb.useraccount;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -21,15 +19,22 @@ import com.android.volley.toolbox.Volley;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.regex.Pattern;
+
+import javax.crypto.SecretKey;
+import javax.crypto.spec.SecretKeySpec;
+
+import androidx.appcompat.app.AppCompatActivity;
 
 public class RegisterActivity extends AppCompatActivity  {
 
     Button btn_registro;
     ImageView back_arrow;
     EditText email,pass,user_name,passr;
-
+    SecretKey secretKey;
     String URL = "http://3.15.228.207/connect/registrar.php";
     RequestQueue requestQueue;
+
     JsonObjectRequest json;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,6 +49,8 @@ public class RegisterActivity extends AppCompatActivity  {
         passr = (EditText) findViewById(R.id.campo_repeatpass);
         user_name = (EditText) findViewById(R.id.campo_username);
         requestQueue = Volley.newRequestQueue(this);
+        byte[] keyStart = "patata".getBytes();
+        secretKey = new SecretKeySpec(keyStart,"AES");
 
 //Lo que hace la activdad
 
@@ -62,43 +69,60 @@ public class RegisterActivity extends AppCompatActivity  {
             }
 
             private void registro() {
-                StringRequest stringRequest = new StringRequest(Request.Method.POST, URL, new Listener<String>() {
-                    @Override
-                    public void onResponse(String response) {
-                        if(response.equals("error_usuario")){
-                            Toast.makeText(getApplicationContext(),"El usuario ya existe",Toast.LENGTH_LONG).show();
-                        }else if(response.equals("error_email")){
-                            Toast.makeText(getApplicationContext(),"El correo electrónico ya existe",Toast.LENGTH_LONG).show();
-                        }else{
-                            Toast.makeText(getApplicationContext(),response,Toast.LENGTH_LONG).show();
-                            Intent ds = new Intent(RegisterActivity.this, LoginActivity.class);
-                            startActivity(ds);
-                            finish();
-                        }
+                if(pass.getText().toString().equals(passr.getText().toString()) && esCorreoCorrecto(email.getText().toString())){
+                    StringRequest stringRequest = new StringRequest(Request.Method.POST, URL, new Listener<String>() {
+                        @Override
+                        public void onResponse(String response) {
+                            if(response.equals("error_usuario")){
+                                Toast.makeText(getApplicationContext(),"El usuario ya existe",Toast.LENGTH_LONG).show();
+                            }else if(response.equals("error_email")){
+                                Toast.makeText(getApplicationContext(),"El correo electrónico ya existe",Toast.LENGTH_LONG).show();
+                            }else{
+                                Toast.makeText(getApplicationContext(),response,Toast.LENGTH_LONG).show();
+                                Intent ds = new Intent(RegisterActivity.this, LoginActivity.class);
+                                startActivity(ds);
+                                finish();
+                            }
 
-                    }
-                }, new Response.ErrorListener() {
-                    @Override
-                    public void onErrorResponse(VolleyError error) {
-                        Toast.makeText(getApplicationContext(),error.toString(),Toast.LENGTH_LONG).show();
-                    }
-                })
-                // Aqui termina la creacion de la request
-                {
-                    @Override
-                    protected Map<String, String> getParams()
+                        }
+                    }, new Response.ErrorListener() {
+                        @Override
+                        public void onErrorResponse(VolleyError error) {
+                            Toast.makeText(getApplicationContext(),error.toString(),Toast.LENGTH_LONG).show();
+                        }
+                    })
+                            // Aqui termina la creacion de la request
                     {
-                        Map<String, String> params = new HashMap<String, String>();
-                        params.put("email", email.getText().toString());
-                        params.put("pass", pass.getText().toString());
-                        params.put("passr", passr.getText().toString());
-                        params.put("username",user_name.getText().toString());
-                        return params;
-                    }
-                };
-                requestQueue.add(stringRequest);
+                        @Override
+                        protected Map<String, String> getParams()
+                        {
+                            Map<String, String> params = new HashMap<String, String>();
+                            params.put("email", email.getText().toString());
+                            params.put("pass", pass.getText().toString());
+                            params.put("username",user_name.getText().toString());
+                            return params;
+                        }
+                    };
+                    requestQueue.add(stringRequest);
+                }else{
+                    if(esCorreoCorrecto(email.getText().toString()))
+                        Toast.makeText(getApplicationContext(),"Las contraseñas no coinciden", Toast.LENGTH_SHORT).show();
+                    else
+                        Toast.makeText(getApplicationContext(),"El formato del correo no es correcto", Toast.LENGTH_SHORT).show();
+                }
+
             }
         });
+    }
+
+
+    private boolean esCorreoCorrecto(String email) {
+        String emailRegex = "^[a-zA-Z0-9_+&*-]+(?:\\."+
+                "[a-zA-Z0-9_+&*-]+)*@" +
+                "(?:[a-zA-Z0-9-]+\\.)+[a-z" +
+                "A-Z]{2,7}$";
+        Pattern pattern = Pattern.compile(emailRegex);
+        return pattern.matcher(email).matches();
     }
 
 

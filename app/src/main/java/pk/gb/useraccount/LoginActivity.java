@@ -1,7 +1,5 @@
 package pk.gb.useraccount;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -22,11 +20,17 @@ import com.example.menu.MenuActivity;
 import java.util.HashMap;
 import java.util.Map;
 
+import javax.crypto.SecretKey;
+import javax.crypto.spec.SecretKeySpec;
+
+import androidx.appcompat.app.AppCompatActivity;
+
 public class LoginActivity extends AppCompatActivity {
 
     Button btn_login,btn_registrar;
     EditText campo_email, campo_pass;
     String URL = "http://3.15.228.207/connect/login.php";
+    SecretKey secretKey;
     RequestQueue requestQueue;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,6 +48,8 @@ public class LoginActivity extends AppCompatActivity {
         campo_email = findViewById(R.id.email_login);
         campo_pass = findViewById(R.id.pass_login);
         requestQueue = Volley.newRequestQueue(this);
+        byte[] keyStart = "this is a key".getBytes();
+        secretKey = new SecretKeySpec(keyStart,"AES");
 
         btn_login.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -101,4 +107,6 @@ public class LoginActivity extends AppCompatActivity {
         Intent ic = new Intent(LoginActivity.this, RegisterActivity.class);
         startActivity(ic);
     }
+
+
 }

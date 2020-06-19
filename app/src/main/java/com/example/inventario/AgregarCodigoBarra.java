@@ -16,6 +16,7 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -73,6 +74,7 @@ public class AgregarCodigoBarra extends AppCompatActivity implements AdapterView
                 final EditText nombreProd = view.findViewById(R.id.nombreDialog);
                 final TextView unidadesDespensa = view.findViewById(R.id.unidadesEnDespensaDialog);
                 final EditText unidadesProd = view.findViewById(R.id.CampoUnidadesDialog);
+                ImageButton deleteFileds = view.findViewById(R.id.btnBorrarNombreDialog);
                 Button btnCancelar = view.findViewById(R.id.cancelarDialog);
                 Button btnAceptar = view.findViewById(R.id.AceptarDialog);
                 FragmentInventario fragmentInventario = new FragmentInventario();
@@ -92,6 +94,14 @@ public class AgregarCodigoBarra extends AppCompatActivity implements AdapterView
                 AlertDialog dialog = alertDialog.create();
                 dialog.show();
                 //Nos traemos el nombre del producto
+
+                deleteFileds.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        nombreProd.setText("");
+
+                    }
+                });
                 StringRequest stringRequestBuscarNombre = new StringRequest(Request.Method.POST, URLcomprobarCodigo, new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
@@ -140,33 +150,36 @@ public class AgregarCodigoBarra extends AppCompatActivity implements AdapterView
                 btnAceptar.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        StringRequest stringRequestAceptar = new StringRequest(Request.Method.POST, URLIntroducir, new Response.Listener<String>() {
-                            @Override
-                            public void onResponse(String response) {
-                                Toast.makeText(getApplicationContext(),"Producto añadido",Toast.LENGTH_LONG);
-                                finish();
-                            }
-                        }, new Response.ErrorListener() {
-                            @Override
-                            public void onErrorResponse(VolleyError error) {
-                                Toast.makeText(getApplicationContext(),error.getMessage().toString(),Toast.LENGTH_LONG);
-                            }
-                        }){
-                            @Override
-                            protected Map<String, String> getParams() throws AuthFailureError {
-                                Map<String,String> params = new HashMap<>();
-                                params.put("codigo",result.getContents());
-                                params.put("nombre",nombreProd.getText().toString());
-                                params.put("unidades",unidadesProd.getText().toString());
-                                params.put("grupo", fragmentFormularioItem.obtenerIntGrupo(valorTipo));
-                                params.put("esta",esta);
-                                SharedPreferences preferences = view.getContext().getSharedPreferences("credenciales", Context.MODE_PRIVATE);
-                                String user = preferences.getString("user","null");
-                                params.put("email",user);
-                                return params;
-                            }
-                        };
-                        requestQueue.add(stringRequestAceptar);
+                        if(!nombreProd.getText().toString().equals("") && !unidadesProd.getText().toString().equals("")){
+                            StringRequest stringRequestAceptar = new StringRequest(Request.Method.POST, URLIntroducir, new Response.Listener<String>() {
+                                @Override
+                                public void onResponse(String response) {
+                                    Toast.makeText(getApplicationContext(),"Producto añadido",Toast.LENGTH_LONG).show();
+                                    finish();
+                                }
+                            }, new Response.ErrorListener() {
+                                @Override
+                                public void onErrorResponse(VolleyError error) {
+                                    Toast.makeText(getApplicationContext(),error.getMessage().toString(),Toast.LENGTH_LONG);
+                                }
+                            }){
+                                @Override
+                                protected Map<String, String> getParams() throws AuthFailureError {
+                                    Map<String,String> params = new HashMap<>();
+                                    params.put("codigo",result.getContents());
+                                    params.put("nombre",nombreProd.getText().toString());
+                                    params.put("unidades",unidadesProd.getText().toString());
+                                    params.put("grupo", fragmentFormularioItem.obtenerIntGrupo(valorTipo));
+                                    params.put("esta",esta);
+                                    SharedPreferences preferences = view.getContext().getSharedPreferences("credenciales", Context.MODE_PRIVATE);
+                                    String user = preferences.getString("user","null");
+                                    params.put("email",user);
+                                    return params;
+                                }
+                            };
+                            requestQueue.add(stringRequestAceptar);
+                        }
+
                     }
                 });
 
