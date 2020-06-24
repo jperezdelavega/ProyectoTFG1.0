@@ -25,7 +25,7 @@
             android:layout_width="match_parent"
             android:layout_height="190dp"
             android:paddingTop="10dp"
-            app:srcCompat="@drawable/logo"/>
+            app:srcCompat="@drawable/logo_login"/>
 
         <EditText
             android:id="@+id/email_login"
