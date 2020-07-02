@@ -91,7 +91,7 @@
                             android:layout_width="64dp"
                             android:layout_height="64dp"
                             android:background="@drawable/circle_menu"
-                            android:src="@drawable/ic_list_menu"
+                            android:src="@drawable/ic_shopping_cart"
                             android:padding="8dp"
                             ></ImageView>
                         <TextView
@@ -161,7 +161,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:gravity="center"
-                            android:text="Agrega la compra a La Despensa"
+                            android:text="Agrega la compra a La Despensa con el código de barras"
                             android:padding="5dp"
                             android:textColor="@color/colorPrimaryDark"></TextView>
                     </LinearLayout>
@@ -203,7 +203,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:gravity="center"
-                            android:text="Elimina los prouctos que has consumido"
+                            android:text="Elimina los productos con el código de barras"
                             android:padding="5dp"
                             android:textColor="@color/colorPrimaryDark"></TextView>
                     </LinearLayout>

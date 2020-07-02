@@ -1,11 +1,5 @@
 package com.example.menu;
 
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
-import androidx.cardview.widget.CardView;
-import androidx.fragment.app.FragmentTransaction;
-import pk.gb.useraccount.R;
-
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -14,7 +8,6 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
-import android.widget.Toast;
 
 import com.example.fragments.FragmentFormularioItem;
 import com.example.fragments.FragmentInventario;
@@ -22,6 +15,12 @@ import com.example.fragments.FragmentListaCompra;
 import com.example.fragments.FragmentMenu;
 import com.example.inventario.AgregarCodigoBarra;
 import com.example.inventario.EliminarCodigoBarra;
+
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
+import androidx.cardview.widget.CardView;
+import androidx.fragment.app.FragmentTransaction;
+import pk.gb.useraccount.R;
 
 public class MenuActivity extends AppCompatActivity implements View.OnClickListener {
     ImageView img_logo;
@@ -58,9 +57,6 @@ public class MenuActivity extends AppCompatActivity implements View.OnClickListe
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()){
-            case R.id.settings_icon:
-                Toast.makeText(getApplicationContext(),"Has pulsado setting",Toast.LENGTH_SHORT).show();
-                break;
             case R.id.logout_icon:
                 borrarUsuario();
                 finish();

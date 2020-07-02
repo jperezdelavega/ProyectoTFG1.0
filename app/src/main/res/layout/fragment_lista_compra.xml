@@ -20,7 +20,9 @@
         android:id="@+id/botonActualizarLista"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:src="@drawable/ic_add_inventory"
+        android:src="@drawable/ic_list_menu"
+        app:menu_colorNormal="@color/colorPrimaryDark"
+        app:menu_colorPressed="@color/colorPrimary"
         android:layout_gravity="end|bottom"
         android:layout_margin="20dp"
         >
@@ -28,18 +30,27 @@
             android:id="@+id/agregarAListaForm"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+            app:fab_colorNormal="@color/colorPrimaryDark"
+            app:fab_colorPressed="@color/colorPrimary"
+            android:src="@drawable/ic_add_menu"
         app:fab_size="mini"
         app:fab_label="Agrega un producto"/>
         <com.github.clans.fab.FloatingActionButton
             android:id="@+id/autocompletarListaCommpra"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            app:fab_colorNormal="@color/colorPrimaryDark"
+            app:fab_colorPressed="@color/colorPrimary"
+            android:src="@drawable/ic_filter_list"
             app:fab_size="mini"
             app:fab_label="Autocompleta tu lista de la compra"/>
         <com.github.clans.fab.FloatingActionButton
             android:id="@+id/borrarListaCompra"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            app:fab_colorNormal="@color/colorPrimaryDark"
+            app:fab_colorPressed="@color/colorPrimary"
+            android:src="@drawable/ic_delete"
             app:fab_size="mini"
             app:fab_label="Borra la lista de la compra"/>
 
